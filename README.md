@@ -2,71 +2,77 @@
 
 > **Stationery • Xerox & Printing • Travel Tickets • School & Office Supplies • All Your Daily Needs in One Place**
 
-A bespoke, high-performance web application designed with modern editorial aesthetics and zero-wait store counter collection. Customers can browse supplies, add items to their bag, and submit their order for 15-minute counter pickup (via WhatsApp or by generating a digital store pickup pass).
+A full-stack, modular architecture separated into **`frontend/`** and **`backend/`** services for OM SHIVAM ENTERPRISES, featuring an Awwwards-inspired luxury stationery interface, digital store pickup slips, and an Express REST API backend.
 
 ---
 
-## 📁 Clean & Professional Architecture
-
-The codebase follows professional frontend engineering standards with modular separation of concerns:
+## 📁 Repository Architecture
 
 ```
 om-shivam-enterprises/
-├── index.html                    # Root HTML entry with Google Fonts & SEO metadata
-├── tailwind.config.js            # Design tokens (warm paper, noir, atelier typography)
-├── vite.config.js                # Vite build & dev server configuration
-├── package.json                  # Dependencies & scripts
-└── src/
-    ├── main.jsx                  # React DOM entry
-    ├── App.jsx                   # Main application layout & product catalog orchestration
-    ├── index.css                 # Global CSS, scrollbar styles, glassmorphism utilities
-    ├── constants/
-    │   └── store.js              # Single authoritative store config (Phone, Google Maps, Hours, Tagline)
-    ├── context/
-    │   └── ShopContext.jsx       # State management (Cart, Bag drawer, Quick view, Pickup slip)
-    ├── data/
-    │   └── products.js           # Curated stationery catalog (20 products with specifications)
-    ├── utils/
-    │   └── formatters.js         # Formatting helpers (Currency, Order Tokens, WhatsApp order links)
-    └── components/
-        ├── AnnouncementBar.jsx   # Top announcement ticker with store offerings
-        ├── Header.jsx            # Glassmorphism navigation with Google Maps link & bag counter
-        ├── ProductCard.jsx       # Luxury gallery card with hover zoom, discount badges, and steppers
-        ├── ProductQuickViewModal.jsx # Interactive lightbox with specifications & WhatsApp inquiry
-        ├── CartDrawer.jsx        # Slide-over bag with free gift progress & pickup time scheduler
-        ├── PickupSlipModal.jsx   # Boutique boarding-pass style pickup slip with Maps directions
-        ├── EditorialStory.jsx    # Four store commitments (Stationery, Xerox, Tickets, 15m Pickup)
-        └── Footer.jsx            # Dark luxury footer with hours, address, and live Maps navigation
+├── package.json                  # Root monorepo configuration (npm workspaces)
+├── vercel.json                   # Vercel deployment configuration
+├── .gitignore                    # Root gitignore for frontend & backend
+├── README.md                     # Project documentation
+│
+├── frontend/                     # 🌐 Client Application (React + Vite + Tailwind)
+│   ├── index.html                # HTML entry with Google Fonts
+│   ├── package.json              # Frontend dependencies (React, Lucide, Tailwind, Confetti)
+│   ├── vite.config.js            # Vite configuration
+│   ├── tailwind.config.js        # Design tokens (warm paper, noir, atelier typography)
+│   ├── postcss.config.js         # PostCSS plugins
+│   └── src/
+│       ├── main.jsx              # Application entrypoint
+│       ├── App.jsx               # Root view & catalog orchestration
+│       ├── index.css             # Design tokens & glassmorphism styling
+│       ├── constants/
+│       │   └── store.js          # Authoritative store metadata & hours
+│       ├── utils/
+│       │   └── formatters.js     # Currency & WhatsApp order generators
+│       ├── context/
+│       │   └── ShopContext.jsx   # State management
+│       ├── data/
+│       │   └── products.js       # Curated 20-product catalog
+│       └── components/
+│           ├── AnnouncementBar.jsx # Continuous top announcement ribbon
+│           ├── Header.jsx        # Glassmorphism navbar with Google Maps link
+│           ├── ProductCard.jsx   # Gallery card with smooth hover scale
+│           ├── ProductQuickViewModal.jsx # Product lightbox & specifications
+│           ├── CartDrawer.jsx    # Slide-over bag & pickup scheduler
+│           ├── PickupSlipModal.jsx # Boarding-pass voucher with Maps directions
+│           ├── EditorialStory.jsx # 4 store pillars (Stationery, Xerox, Tickets, 15m Pickup)
+│           └── Footer.jsx        # Dark luxury footer
+│
+└── backend/                      # ⚙️ Server Application (Node.js + Express)
+    ├── package.json              # Express, CORS, Dotenv
+    ├── server.js                 # REST API endpoints (/api/health, /api/store, /api/orders)
+    └── .env.example              # Environment variables template (PORT=5001)
 ```
-
----
-
-## 🌟 Key Features
-
-1. **Single Source of Truth ([`src/constants/store.js`](file:///Users/nishandshetty/Documents/Antigravity/Om%20shivam/src/constants/store.js))**:
-   - Manage your store name, phone number, Google Maps URL, hours, and addresses in one central place.
-2. **Direct Product Grid**:
-   - Clean, uncluttered layout starting immediately with the stationery catalog.
-3. **Google Maps Integration**:
-   - One-click navigation to your store ([`https://maps.app.goo.gl/gBKD1gkP96SNW1VAA`](https://maps.app.goo.gl/gBKD1gkP96SNW1VAA)) accessible via header pill, pickup pass, and footer.
-4. **Interactive Atelier Bag**:
-   - Complimentary perk tracker (free archival document wallet on orders ₹800+).
-   - In-store pickup scheduler with custom time windows.
-   - WhatsApp order transmission with formatted order summary and generated pickup token.
-5. **Zero Dead Code**:
-   - All unused components, dead imports, and redundant styles have been completely audited and removed.
 
 ---
 
 ## 🚀 Running Locally
 
+### 1. Run Frontend (Client App)
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
 npm run dev
+# Or from root: npm run dev:frontend
+```
+The client runs at `http://localhost:3000/`.
 
-# Build for production
+### 2. Run Backend (REST API)
+```bash
+npm run dev:backend
+# Or cd backend && npm run dev
+```
+The API runs at `http://localhost:5001/` with endpoints:
+- `GET /api/health` — Service health check
+- `GET /api/store` — Store address, contact, and hours
+- `POST /api/orders` — In-store order creation and token allocation
+- `GET /api/orders/:token` — Order lookup by token
+
+### 3. Build for Production (Vercel Ready)
+```bash
 npm run build
 ```
+Vercel automatically detects `frontend/dist` as configured in [`vercel.json`](./vercel.json).
