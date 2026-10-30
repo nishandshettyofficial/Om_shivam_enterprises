@@ -1,9 +1,11 @@
 import React from 'react';
 import { useShop } from '../context/ShopContext';
+import { useAuth } from '../context/AuthContext';
 import { Plus, Minus, Eye, Star } from 'lucide-react';
 
 export default function ProductCard({ product }) {
   const { cart, addToCart, updateCartQuantity, setQuickViewProduct } = useShop();
+  const { requireAuth } = useAuth();
 
   const cartItem = cart.find((item) => item.product.id === product.id);
   const discount = product.mrp ? product.mrp - product.price : 0;
@@ -118,7 +120,7 @@ export default function ProductCard({ product }) {
             </div>
           ) : (
             <button
-              onClick={() => addToCart(product, 1)}
+              onClick={() => requireAuth(() => addToCart(product, 1))}
               className="bg-[#141416] hover:bg-stone-800 active:scale-95 text-[#FAF9F5] font-mono text-xs uppercase tracking-wider font-semibold py-2 px-3.5 rounded-full transition-all duration-200 flex items-center gap-1.5 shadow-sm cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" />

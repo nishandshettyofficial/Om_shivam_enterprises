@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useShop } from '../context/ShopContext';
+import { useAuth } from '../context/AuthContext';
 import { STORE_CONFIG } from '../constants/store';
 import { X, Plus, Minus, ShoppingBag, Star, MessageCircle, Check } from 'lucide-react';
 
@@ -13,6 +14,8 @@ export default function ProductQuickViewModal() {
     shopPhone
   } = useShop();
 
+  const { requireAuth } = useAuth();
+
   const [quantity, setQuantity] = useState(1);
   const [justAdded, setJustAdded] = useState(false);
 
@@ -25,9 +28,11 @@ export default function ProductQuickViewModal() {
     : 0;
 
   const handleAdd = () => {
-    addToCart(product, quantity);
-    setJustAdded(true);
-    setTimeout(() => setJustAdded(false), 2000);
+    requireAuth(() => {
+      addToCart(product, quantity);
+      setJustAdded(true);
+      setTimeout(() => setJustAdded(false), 2000);
+    });
   };
 
   return (
