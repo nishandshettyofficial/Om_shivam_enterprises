@@ -17,15 +17,24 @@ import {
   MapPin,
   MessageCircle,
   Sparkles,
-  ChevronRight
+  ChevronRight,
+  Edit3,
+  Check,
+  X
 } from 'lucide-react';
 
 export default function UserDashboard() {
-  const { currentUser, logout, setCurrentView } = useAuth();
+  const { currentUser, logout, setCurrentView, updateProfile } = useAuth();
   const { cart, addToCart, setIsCartOpen, setPickupSlip } = useShop();
 
   const [activeTab, setActiveTab] = useState('orders'); // 'orders' | 'print' | 'travel'
   
+  // Profile Edit State
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const [editName, setEditName] = useState(currentUser?.name || '');
+  const [editPhone, setEditPhone] = useState(currentUser?.phone || '');
+  const [profileSuccessMsg, setProfileSuccessMsg] = useState('');
+
   // Print Job State
   const [printFileName, setPrintFileName] = useState('');
   const [printType, setPrintType] = useState('Black & White (₹2/page)');
@@ -87,6 +96,20 @@ export default function UserDashboard() {
     }, 4000);
   };
 
+  const handleSaveProfile = (e) => {
+    if (e) e.preventDefault();
+    if (!editName.trim()) return;
+
+    updateProfile({
+      name: editName.trim(),
+      phone: editPhone ? editPhone.replace(/\D/g, '').slice(-10) : currentUser?.phone || ''
+    });
+
+    setIsEditingProfile(false);
+    setProfileSuccessMsg('Profile updated successfully!');
+    setTimeout(() => setProfileSuccessMsg(''), 3000);
+  };
+
   return (
     <div className="min-h-screen bg-[#FAF9F5] text-stone-900 pb-16">
       
@@ -95,8 +118,12 @@ export default function UserDashboard() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-serif text-2xl font-bold border border-amber-400/30">
-              {currentUser?.name?.[0]?.toUpperCase() || 'U'}
+            <div className="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-serif text-2xl font-bold border border-amber-400/30 overflow-hidden shrink-0">
+              {currentUser?.photo ? (
+                <img src={currentUser.photo} alt={currentUser.name} className="w-full h-full object-cover" />
+              ) : (
+                (currentUser?.name?.[0] || 'U').toUpperCase()
+              )}
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -104,12 +131,77 @@ export default function UserDashboard() {
                   {currentUser?.handle || '@patron'}
                 </span>
                 <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-mono px-2 py-0.5 rounded-full border border-emerald-500/30">
-                  Verified Customer
+                  {currentUser?.authProvider === 'google' ? 'Google Verified' : 'Verified Customer'}
                 </span>
               </div>
-              <p className="text-xs text-stone-400 font-sans mt-0.5">
-                {currentUser?.name} • +91 {currentUser?.phone}
-              </p>
+
+              {!isEditingProfile ? (
+                <div className="mt-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-semibold text-white">
+                      {currentUser?.name || 'Valued Patron'}
+                    </span>
+                    <button
+                      onClick={() => {
+                        setEditName(currentUser?.name || '');
+                        setEditPhone(currentUser?.phone || '');
+                        setIsEditingProfile(true);
+                      }}
+                      className="text-[11px] font-mono text-amber-300 hover:text-amber-200 flex items-center gap-1 underline underline-offset-2 cursor-pointer transition-colors"
+                      title="Edit your display name"
+                    >
+                      <Edit3 className="w-3 h-3" />
+                      <span>Edit Name</span>
+                    </button>
+                  </div>
+                  <p className="text-xs text-stone-400 font-sans mt-0.5">
+                    {currentUser?.phone ? `+91 ${currentUser.phone}` : (currentUser?.email || 'Store Patron')}
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleSaveProfile} className="mt-2 space-y-2 bg-white/5 p-3 rounded-xl border border-white/10">
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <input
+                      type="text"
+                      value={editName}
+                      onChange={(e) => setEditName(e.target.value)}
+                      placeholder="Your Name (e.g. Rahul Sharma)"
+                      className="bg-stone-900 border border-stone-700 text-white rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-amber-400 font-sans"
+                      autoFocus
+                      required
+                    />
+                    <input
+                      type="tel"
+                      value={editPhone}
+                      onChange={(e) => setEditPhone(e.target.value)}
+                      placeholder="WhatsApp Mobile (optional)"
+                      maxLength={10}
+                      className="bg-stone-900 border border-stone-700 text-white rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-amber-400 font-sans"
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="submit"
+                      className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs px-3 py-1 rounded-lg font-mono font-bold flex items-center gap-1 cursor-pointer transition-colors"
+                    >
+                      <Check className="w-3 h-3" /> Save
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsEditingProfile(false)}
+                      className="bg-white/10 hover:bg-white/20 text-stone-300 text-xs px-2.5 py-1 rounded-lg cursor-pointer transition-colors"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              {profileSuccessMsg && (
+                <span className="text-[11px] font-mono text-emerald-400 mt-1 block">
+                  ✓ {profileSuccessMsg}
+                </span>
+              )}
             </div>
           </div>
 
