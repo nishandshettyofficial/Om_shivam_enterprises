@@ -130,8 +130,9 @@ export default function AuthModal() {
     // Shopkeeper Master Login Check
     if (
       cleanPhone === STORE_CONFIG.phone.slice(-10) ||
-      handle.toLowerCase() === '@om_shivam_admin' ||
-      cleanPhone === '919876543210'
+      cleanPhone === '8147228162' ||
+      cleanPhone === '918147228162' ||
+      handle.toLowerCase() === '@om_shivam_admin'
     ) {
       if (pin === '1234') {
         login({
@@ -155,7 +156,7 @@ export default function AuthModal() {
 
   // Demo Fast-Fill helpers for easy evaluation
   const fillShopkeeperDemo = () => {
-    setPhone('9876543210');
+    setPhone('8147228162');
     setHandle('@om_shivam_admin');
     setPin('1234');
     setAuthModalMode('login');
@@ -218,7 +219,7 @@ export default function AuthModal() {
                   : 'text-stone-600 hover:text-black'
               }`}
             >
-              New @Handle ID
+              Register
             </button>
             <button
               onClick={() => {
@@ -535,3 +536,4 @@ export default function AuthModal() {
     </div>
   );
 }
+
