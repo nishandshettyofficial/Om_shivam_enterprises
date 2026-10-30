@@ -183,15 +183,15 @@ export default function ProductQuickViewModal() {
 
               {/* Direct WhatsApp Question */}
               <a
-                href={`https://api.whatsapp.com/send?phone=${shopPhone}&text=${encodeURIComponent(
+                href={`https://wa.me/918147228162?text=${encodeURIComponent(
                   `Hi ${STORE_CONFIG.name}, I am inquiring about "${product.name}" (₹${product.price}). Do you have this in stock at your counter?`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full text-center text-xs text-stone-500 hover:text-stone-900 py-1 flex items-center justify-center gap-1.5 transition-colors"
+                className="w-full text-center text-xs text-stone-500 hover:text-emerald-700 py-1 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
               >
                 <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Ask shopkeeper about this item via WhatsApp</span>
+                <span>WhatsApp counter at 8147228162</span>
               </a>
 
             </div>

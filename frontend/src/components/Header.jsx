@@ -110,16 +110,16 @@ export default function Header() {
 
             {/* Direct WhatsApp Concierge */}
             <a
-              href={`https://api.whatsapp.com/send?phone=${shopPhone}&text=${encodeURIComponent(
-                "Hello Om Shivam Enterprises, I would like to inquire about stationery items available at your store."
-              )}`}
+              href="https://wa.me/918147228162"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:flex items-center gap-1.5 text-xs text-stone-700 hover:text-stone-900 border border-warm-border hover:border-stone-400 bg-white/70 px-3 py-1.5 rounded-full transition-colors"
-              title="Chat directly with shopkeeper on WhatsApp"
+              className="flex items-center gap-1.5 text-xs text-emerald-800 hover:text-emerald-950 border border-emerald-300/80 hover:border-emerald-500 bg-emerald-50/80 hover:bg-emerald-100/80 px-3 py-1.5 rounded-full transition-all font-mono font-medium cursor-pointer shadow-xs"
+              title="Chat directly with OM SHIVAM ENTERPRISES on WhatsApp: 8147228162"
             >
-              <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Ask Shop</span>
+              <MessageCircle className="w-3.5 h-3.5 text-emerald-600 fill-emerald-100 shrink-0" />
+              <span className="hidden sm:inline">WhatsApp:</span>
+              <span className="sm:hidden">WhatsApp</span>
+              <span className="hidden sm:inline font-bold">8147228162</span>
             </a>
 
             {/* Account / Dashboard Button */}
