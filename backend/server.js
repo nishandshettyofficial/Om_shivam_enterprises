@@ -18,8 +18,17 @@ const printJobs = [];
 const travelRequests = [];
 
 // Seed Default Accounts
-users.set('919876543210', {
-  phone: '919876543210',
+users.set('8147228162', {
+  phone: '8147228162',
+  handle: '@om_shivam_admin',
+  name: 'Store Manager',
+  pin: '1234',
+  role: 'shopkeeper',
+  createdAt: new Date().toISOString()
+});
+
+users.set('918147228162', {
+  phone: '918147228162',
   handle: '@om_shivam_admin',
   name: 'Store Manager',
   pin: '1234',
@@ -73,7 +82,7 @@ orders.set(sampleOrder1.token, sampleOrder1);
 // Store Configuration
 const STORE_DATA = {
   name: "OM SHIVAM ENTERPRISES",
-  phone: "919876543210",
+  phone: "918147228162",
   mapsUrl: "https://maps.app.goo.gl/gBKD1gkP96SNW1VAA",
   address: "OM SHIVAM ENTERPRISES, Main Market, Stationery Dept.",
   hours: {
@@ -162,7 +171,7 @@ app.post('/api/auth/register', (req, res) => {
     handle: cleanHandle,
     name: name || cleanHandle.replace('@', ''),
     pin: pin.toString(),
-    role: cleanPhone === '919876543210' ? 'shopkeeper' : 'customer',
+    role: (cleanPhone === '8147228162' || cleanPhone === '918147228162' || cleanHandle === '@om_shivam_admin') ? 'shopkeeper' : 'customer',
     createdAt: new Date().toISOString()
   };
 

@@ -12,7 +12,10 @@ export const STORE_CONFIG = {
   subtitle: "Stationery • Xerox & Printing • Travel Tickets • School & Office Supplies",
   
   // Contact & Location
-  phone: "919876543210",
+  phone: "918147228162",
+  rawPhone: "8147228162",
+  displayPhone: "+91 8147228162",
+  whatsappUrl: "https://wa.me/918147228162",
   mapsUrl: "https://maps.app.goo.gl/gBKD1gkP96SNW1VAA",
   
   // Operating Hours
