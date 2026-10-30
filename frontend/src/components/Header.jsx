@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useShop } from '../context/ShopContext';
+import { useAuth } from '../context/AuthContext';
 import { STORE_CONFIG } from '../constants/store';
-import { Search, ShoppingBag, X, ArrowUpRight, MessageCircle } from 'lucide-react';
+import { Search, ShoppingBag, X, ArrowUpRight, MessageCircle, User, Store } from 'lucide-react';
 
 export default function Header() {
   const {
@@ -14,6 +15,16 @@ export default function Header() {
     shopMapsUrl
   } = useShop();
 
+  const {
+    currentUser,
+    isLoggedIn,
+    isShopkeeper,
+    setIsAuthModalOpen,
+    setAuthModalMode,
+    currentView,
+    setCurrentView
+  } = useAuth();
+
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   return (
@@ -22,7 +33,14 @@ export default function Header() {
         <div className="flex items-center justify-between gap-4">
           
           {/* Brand Identity */}
-          <a href="#" className="flex items-center gap-3 group text-left shrink-0">
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setCurrentView('catalog');
+            }}
+            className="flex items-center gap-3 group text-left shrink-0 cursor-pointer"
+          >
             <div className="w-10 h-10 rounded-xl bg-[#141416] text-[#FAF9F5] flex items-center justify-center font-serif text-lg font-bold shadow-atelier group-hover:scale-105 transition-transform duration-300">
               {STORE_CONFIG.monogram}
             </div>
@@ -79,14 +97,14 @@ export default function Header() {
               href={shopMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-2 bg-[#F4F2EC] hover:bg-stone-200/80 border border-warm-border hover:border-stone-400 px-3 py-1.5 rounded-full text-[11px] font-mono transition-all group cursor-pointer"
+              className="hidden lg:flex items-center gap-2 bg-[#F4F2EC] hover:bg-stone-200/80 border border-warm-border hover:border-stone-400 px-3 py-1.5 rounded-full text-[11px] font-mono transition-all group cursor-pointer"
               title="Open OM SHIVAM ENTERPRISES on Google Maps"
             >
               <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span className="text-stone-700 font-medium">Shop Open • 15m Pickup</span>
+              <span className="text-stone-700 font-medium">Shop Open</span>
               <ArrowUpRight className="w-3 h-3 text-stone-400 group-hover:text-stone-800 transition-colors" />
             </a>
 
@@ -97,12 +115,47 @@ export default function Header() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-1.5 text-xs text-stone-700 hover:text-stone-900 border border-warm-border hover:border-stone-400 bg-white/70 px-3 py-1.5 rounded-full transition-colors"
+              className="hidden md:flex items-center gap-1.5 text-xs text-stone-700 hover:text-stone-900 border border-warm-border hover:border-stone-400 bg-white/70 px-3 py-1.5 rounded-full transition-colors"
               title="Chat directly with shopkeeper on WhatsApp"
             >
               <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
               <span>Ask Shop</span>
             </a>
+
+            {/* Account / Dashboard Button */}
+            {isLoggedIn ? (
+              isShopkeeper ? (
+                <button
+                  onClick={() => setCurrentView(currentView === 'shopkeeper-dashboard' ? 'catalog' : 'shopkeeper-dashboard')}
+                  className="flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-full text-xs font-mono font-semibold transition-colors cursor-pointer"
+                  title="Switch between Shopkeeper Counter Hub and Public Catalog"
+                >
+                  <Store className="w-3.5 h-3.5 text-amber-700" />
+                  <span>{currentView === 'shopkeeper-dashboard' ? 'Catalog' : 'Counter Hub'}</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => setCurrentView(currentView === 'user-dashboard' ? 'catalog' : 'user-dashboard')}
+                  className="flex items-center gap-1.5 bg-[#F4F2EC] hover:bg-stone-200/80 text-stone-800 border border-warm-border px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-colors cursor-pointer"
+                  title="Open Your Patron Dashboard"
+                >
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="max-w-[100px] truncate">{currentView === 'user-dashboard' ? 'Catalog' : currentUser?.handle || 'My Account'}</span>
+                </button>
+              )
+            ) : (
+              <button
+                onClick={() => {
+                  setAuthModalMode('login');
+                  setIsAuthModalOpen(true);
+                }}
+                className="flex items-center gap-1.5 text-xs text-stone-700 hover:text-stone-900 border border-warm-border hover:border-stone-400 bg-white/70 px-3 py-1.5 rounded-full transition-colors font-mono cursor-pointer"
+                title="Sign in with Mobile or Handle"
+              >
+                <User className="w-3.5 h-3.5 text-stone-600" />
+                <span>Sign In</span>
+              </button>
+            )}
 
             {/* Shopping Bag CTA */}
             <button

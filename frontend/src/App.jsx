@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useShop } from './context/ShopContext';
+import { useAuth } from './context/AuthContext';
 import AnnouncementBar from './components/AnnouncementBar';
 import Header from './components/Header';
 import ProductCard from './components/ProductCard';
@@ -7,6 +8,9 @@ import ProductQuickViewModal from './components/ProductQuickViewModal';
 import EditorialStory from './components/EditorialStory';
 import CartDrawer from './components/CartDrawer';
 import PickupSlipModal from './components/PickupSlipModal';
+import AuthModal from './components/AuthModal';
+import UserDashboard from './components/UserDashboard';
+import ShopkeeperDashboard from './components/ShopkeeperDashboard';
 import Footer from './components/Footer';
 import { ArrowRight, RotateCcw } from 'lucide-react';
 
@@ -24,6 +28,8 @@ export default function App() {
     cartTotal,
     setIsCartOpen
   } = useShop();
+
+  const { currentView } = useAuth();
 
   // Filter and sort products
   const processedProducts = useMemo(() => {
@@ -67,6 +73,36 @@ export default function App() {
     setSearchQuery('');
   };
 
+  // 1. Dedicated Shopkeeper Counter Dashboard View
+  if (currentView === 'shopkeeper-dashboard') {
+    return (
+      <div className="min-h-screen bg-[#F4F2EC] text-[#141416] antialiased">
+        <ShopkeeperDashboard />
+        <AuthModal />
+        <PickupSlipModal />
+      </div>
+    );
+  }
+
+  // 2. Dedicated Customer Patron Dashboard View
+  if (currentView === 'user-dashboard') {
+    return (
+      <div className="min-h-screen flex flex-col bg-[#FAF9F5] text-[#141416] antialiased selection:bg-[#141416] selection:text-white">
+        <AnnouncementBar />
+        <Header />
+        <main className="flex-1 w-full">
+          <UserDashboard />
+        </main>
+        <Footer />
+        <AuthModal />
+        <ProductQuickViewModal />
+        <CartDrawer />
+        <PickupSlipModal />
+      </div>
+    );
+  }
+
+  // 3. Main Public Luxury Atelier Catalog Gallery View
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF9F5] text-[#141416] antialiased selection:bg-[#141416] selection:text-white">
       {/* Top Ticker Bar */}
@@ -169,6 +205,9 @@ export default function App() {
           </button>
         </div>
       )}
+
+      {/* Unified Verification & PIN Auth Modal */}
+      <AuthModal />
 
       {/* Quick View Lightbox Modal */}
       <ProductQuickViewModal />
