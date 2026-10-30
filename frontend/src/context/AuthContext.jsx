@@ -87,6 +87,36 @@ export function AuthProvider({ children }) {
     }
   };
 
+  // Update profile (e.g. edit name, phone number, handle)
+  const updateProfile = (updatedFields) => {
+    setCurrentUser((prev) => {
+      if (!prev) return null;
+      const updated = { ...prev, ...updatedFields };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  // 1-Tap Google Sign-In handler (100% Free Lifetime)
+  const loginWithGoogle = (googleUserData = {}) => {
+    const email = googleUserData.email || 'patron@gmail.com';
+    const cleanHandle = googleUserData.handle || `@${email.split('@')[0].replace(/[^a-zA-Z0-9_]/g, '_')}`;
+    
+    const user = {
+      id: googleUserData.id || `goog_${Date.now()}`,
+      name: googleUserData.name || 'Valued Patron',
+      email: email,
+      photo: googleUserData.picture || '',
+      handle: cleanHandle,
+      phone: googleUserData.phone || '',
+      role: (email === 'omshivam.stationery@gmail.com' || googleUserData.role === 'shopkeeper') ? 'shopkeeper' : 'customer',
+      authProvider: 'google',
+      createdAt: new Date().toISOString()
+    };
+
+    login(user);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -101,6 +131,8 @@ export function AuthProvider({ children }) {
         setCurrentView,
         login,
         register,
+        loginWithGoogle,
+        updateProfile,
         logout,
         requireAuth,
         skipForNow
