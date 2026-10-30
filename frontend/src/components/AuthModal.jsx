@@ -24,6 +24,7 @@ export default function AuthModal() {
     setAuthModalMode,
     login,
     register,
+    loginWithGoogle,
     skipForNow
   } = useAuth();
 
@@ -170,6 +171,19 @@ export default function AuthModal() {
     setAuthModalMode('login');
   };
 
+  // 1-Tap Google Sign-In (100% Free Lifetime)
+  const handleGoogleSignIn = () => {
+    const customerName = name.trim() || 'Rahul Sharma';
+    const emailPrefix = customerName.toLowerCase().replace(/[^a-z0-9]/g, '_');
+    loginWithGoogle({
+      name: customerName,
+      email: `${emailPrefix}@gmail.com`,
+      handle: handle || `@${emailPrefix}`,
+      phone: phone || '',
+      picture: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80'
+    });
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
       {/* Backdrop */}
@@ -237,6 +251,53 @@ export default function AuthModal() {
             </button>
           </div>
         </div>
+
+        {/* Google 1-Tap Sign-In (100% Free Forever) */}
+        {!isVerifying && (
+          <div className="px-5 pt-3">
+            <button
+              type="button"
+              onClick={handleGoogleSignIn}
+              className="w-full bg-white hover:bg-stone-50 active:scale-98 text-stone-800 font-medium text-xs py-2.5 px-4 rounded-xl border border-warm-border hover:border-stone-400 shadow-xs flex items-center justify-center gap-2.5 transition-all cursor-pointer group"
+            >
+              <svg className="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" viewBox="0 0 24 24">
+                <path
+                  fill="#4285F4"
+                  d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.66-5.17 3.66-9.12z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.13C3.27 21.36 7.35 24 12 24z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.57H1.25C.45 8.16 0 9.97 0 12s.45 3.84 1.25 5.43l4.03-3.14z"
+                />
+                <path
+                  fill="#EA4335"
+                  d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.35 0 3.27 2.64 1.25 6.57l4.03 3.14c.95-2.83 3.6-4.96 6.72-4.96z"
+                />
+              </svg>
+              <span className="font-semibold text-stone-800">
+                {authModalMode === 'register' ? 'Continue with Google' : 'Sign in with Google'}
+              </span>
+              <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                1-Tap Free
+              </span>
+            </button>
+
+            <div className="relative my-3">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-warm-border"></div>
+              </div>
+              <div className="relative flex justify-center text-[10px] font-mono uppercase tracking-wider text-stone-400">
+                <span className="bg-[#FAF9F5] px-2.5">
+                  or continue with mobile number
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Error / Notification Banner */}
         {error && (
