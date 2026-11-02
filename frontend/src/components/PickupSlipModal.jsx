@@ -30,7 +30,7 @@ export default function PickupSlipModal() {
     const msg = encodeURIComponent(
       `*${STORE_CONFIG.name} — PICKUP PASS #${pickupSlip.token}*\n` +
       `════════════════════════════════════\n` +
-      `Patron: ${pickupSlip.customerName} (${pickupSlip.customerPhone})\n` +
+      `Customer: ${pickupSlip.customerName} (${pickupSlip.customerPhone})\n` +
       `Collection Time: ${pickupSlip.pickupTime}\n\n` +
       `Items:\n${itemsText}\n\n` +
       `Total Payable: ₹${pickupSlip.total}\n` +

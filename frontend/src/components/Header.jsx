@@ -75,7 +75,7 @@ export default function Header() {
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search archival paper, Parker pens, Casio calculators, art sets..."
+                placeholder="Search notebooks, pens, calculators, Xerox services, files..."
                 className="w-full bg-transparent text-xs text-[#141416] placeholder:text-stone-400 pl-11 pr-10 py-2.5 rounded-full focus:outline-none font-sans"
               />
               {searchQuery && (
@@ -137,7 +137,7 @@ export default function Header() {
                 <button
                   onClick={() => setCurrentView(currentView === 'user-dashboard' ? 'catalog' : 'user-dashboard')}
                   className="flex items-center gap-1.5 bg-[#F4F2EC] hover:bg-stone-200/80 text-stone-800 border border-warm-border px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-colors cursor-pointer"
-                  title="Open Your Patron Dashboard"
+                  title="Open Your Account & Orders"
                 >
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   <span className="max-w-[100px] truncate">{currentView === 'user-dashboard' ? 'Catalog' : currentUser?.handle || 'My Account'}</span>

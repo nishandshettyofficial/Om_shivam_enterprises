@@ -53,7 +53,7 @@ export default function Footer() {
           {/* Quick Categories Col */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="font-mono text-xs uppercase tracking-widest text-stone-400 font-semibold">
-              Curated Collections
+              Categories
             </h4>
             <ul className="space-y-2 text-xs text-stone-300 font-light">
               {CATEGORIES.slice(1, 7).map((cat) => (
@@ -134,7 +134,7 @@ export default function Footer() {
             © {new Date().getFullYear()} {STORE_CONFIG.name}. All rights reserved.
           </div>
           <div className="flex items-center gap-6">
-            <span>Fine Stationery & Daily Essentials</span>
+            <span>Stationery, Xerox, Printing & Travel Tickets</span>
             <span>•</span>
             <span>15-Minute Counter Collection</span>
           </div>

@@ -72,7 +72,7 @@ export default function CartDrawer() {
 
     setPickupSlip({
       token,
-      customerName: customerName || 'Valued Patron',
+      customerName: customerName || 'Customer',
       customerPhone: customerPhone || '-',
       pickupTime,
       extraNotes,
@@ -93,7 +93,7 @@ export default function CartDrawer() {
     const token = generateOrderToken();
     setPickupSlip({
       token,
-      customerName: customerName || 'Valued Patron',
+      customerName: customerName || 'Customer',
       customerPhone: customerPhone || '-',
       pickupTime,
       extraNotes,
@@ -143,7 +143,7 @@ export default function CartDrawer() {
             </div>
             <div>
               <h2 className="font-serif text-base font-bold text-white tracking-wide">
-                The Atelier Bag
+                Your Order Bag
               </h2>
               <p className="text-[11px] font-mono text-stone-400">
                 Pre-packed for in-store collection ({cartCount} items)
