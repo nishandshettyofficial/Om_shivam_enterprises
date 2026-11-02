@@ -149,8 +149,8 @@ export default function AuthModal() {
     // Default Customer Login
     login({
       phone: cleanPhone || '9876543210',
-      handle: handle || `@patron_${cleanPhone.slice(-4) || '742'}`,
-      name: name || 'Valued Patron',
+      handle: handle || `@user_${cleanPhone.slice(-4) || '742'}`,
+      name: name || 'Customer',
       role: 'customer'
     });
   };

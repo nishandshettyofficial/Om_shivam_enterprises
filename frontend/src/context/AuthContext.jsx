@@ -99,12 +99,12 @@ export function AuthProvider({ children }) {
 
   // 1-Tap Google Sign-In handler (100% Free Lifetime)
   const loginWithGoogle = (googleUserData = {}) => {
-    const email = googleUserData.email || 'patron@gmail.com';
+    const email = googleUserData.email || 'customer@gmail.com';
     const cleanHandle = googleUserData.handle || `@${email.split('@')[0].replace(/[^a-zA-Z0-9_]/g, '_')}`;
     
     const user = {
       id: googleUserData.id || `goog_${Date.now()}`,
-      name: googleUserData.name || 'Valued Patron',
+      name: googleUserData.name || 'Customer',
       email: email,
       photo: googleUserData.picture || '',
       handle: cleanHandle,

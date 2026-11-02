@@ -84,7 +84,7 @@ export default function App() {
     );
   }
 
-  // 2. Dedicated Customer Patron Dashboard View
+  // 2. Customer Dashboard & Orders View
   if (currentView === 'user-dashboard') {
     return (
       <div className="min-h-screen flex flex-col bg-[#FAF9F5] text-[#141416] antialiased selection:bg-[#141416] selection:text-white">
@@ -102,7 +102,7 @@ export default function App() {
     );
   }
 
-  // 3. Main Public Luxury Atelier Catalog Gallery View
+  // 3. Main Store Catalog Gallery View
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF9F5] text-[#141416] antialiased selection:bg-[#141416] selection:text-white">
       {/* Top Ticker Bar */}
@@ -138,7 +138,7 @@ export default function App() {
               onChange={(e) => setSortBy(e.target.value)}
               className="bg-transparent text-stone-700 text-xs font-mono focus:outline-none cursor-pointer"
             >
-              <option value="curated">Curated Order</option>
+              <option value="curated">Featured First</option>
               <option value="price-low">Price: Low to High</option>
               <option value="price-high">Price: High to Low</option>
               <option value="rating">Top Rated</option>
@@ -198,8 +198,8 @@ export default function App() {
                 Total: ₹{cartTotal}
               </span>
             </div>
-            <div className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider font-bold text-atelier-200">
-              <span>View Atelier Bag</span>
+            <div className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider font-bold text-amber-200">
+              <span>View Bag</span>
               <ArrowRight className="w-4 h-4" />
             </div>
           </button>

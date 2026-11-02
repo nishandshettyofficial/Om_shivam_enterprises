@@ -128,7 +128,7 @@ export default function UserDashboard() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-mono text-lg font-bold text-white tracking-wide">
-                  {currentUser?.handle || '@patron'}
+                  {currentUser?.handle || '@customer'}
                 </span>
                 <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-mono px-2 py-0.5 rounded-full border border-emerald-500/30">
                   {currentUser?.authProvider === 'google' ? 'Google Verified' : 'Verified Customer'}
@@ -139,7 +139,7 @@ export default function UserDashboard() {
                 <div className="mt-1">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-semibold text-white">
-                      {currentUser?.name || 'Valued Patron'}
+                      {currentUser?.name || 'Customer'}
                     </span>
                     <button
                       onClick={() => {
@@ -155,7 +155,7 @@ export default function UserDashboard() {
                     </button>
                   </div>
                   <p className="text-xs text-stone-400 font-sans mt-0.5">
-                    {currentUser?.phone ? `+91 ${currentUser.phone}` : (currentUser?.email || 'Store Patron')}
+                    {currentUser?.phone ? `+91 ${currentUser.phone}` : (currentUser?.email || 'Store Customer')}
                   </p>
                 </div>
               ) : (
