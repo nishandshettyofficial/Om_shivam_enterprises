@@ -46,7 +46,7 @@ export function generateWhatsAppOrderText({
     `*ORDER FOR SHOP PICKUP — ${STORE_CONFIG.name}*\n` +
     `Pickup Token: #${token}\n` +
     `════════════════════════════════════\n` +
-    `Customer: ${customerName || 'Walk-in Patron'}\n` +
+    `Customer: ${customerName || 'Customer'}\n` +
     `Phone: ${customerPhone || 'Not provided'}\n` +
     `Collection Window: ${pickupTime}\n\n` +
     `*ORDERED ITEMS:*\n${itemsText}\n\n` +

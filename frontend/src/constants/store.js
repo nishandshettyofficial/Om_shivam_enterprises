@@ -45,8 +45,8 @@ export const STORE_CONFIG = {
   // E-Commerce Bag Settings
   cart: {
     freeGiftThreshold: 800,
-    freeGiftDescription: "Complimentary archival document wallet",
-    storageKey: "ose_atelier_cart"
+    freeGiftDescription: "Free document folder on orders over ₹800",
+    storageKey: "ose_cart"
   }
 };
 
