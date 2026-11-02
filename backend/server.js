@@ -130,7 +130,7 @@ app.post('/api/auth/generate-verification-code', (req, res) => {
   verificationCodes.set(cleanPhone, {
     code,
     phone: cleanPhone,
-    handle: handle || '@patron',
+    handle: handle || '@customer',
     expiresAt: Date.now() + 10 * 60 * 1000 // 10 minutes
   });
 
@@ -292,9 +292,9 @@ app.post('/api/orders', (req, res) => {
     const token = `OSE-${Math.floor(100 + Math.random() * 900)}`;
     const newOrder = {
       token,
-      customerName: customerName || 'Valued Patron',
+      customerName: customerName || 'Customer',
       customerPhone: customerPhone ? customerPhone.replace(/\D/g, '').slice(-10) : '-',
-      customerHandle: customerHandle || '@patron',
+      customerHandle: customerHandle || '@customer',
       pickupTime: pickupTime || 'Today within 30-45 minutes',
       extraNotes: extraNotes || '',
       items,
@@ -357,9 +357,9 @@ app.post('/api/print-jobs', (req, res) => {
 
   const newJob = {
     id: `PRN-${Math.floor(100 + Math.random() * 900)}`,
-    customerName: customerName || 'Valued Patron',
+    customerName: customerName || 'Customer',
     customerPhone: customerPhone || '-',
-    customerHandle: customerHandle || '@patron',
+    customerHandle: customerHandle || '@customer',
     fileName: fileName || 'Document.pdf',
     printType: printType || 'Black & White',
     copies: Number(copies) || 1,
@@ -393,7 +393,7 @@ app.post('/api/travel-requests', (req, res) => {
 
   const newRequest = {
     id: `TRV-${Math.floor(100 + Math.random() * 900)}`,
-    customerName: customerName || 'Valued Patron',
+    customerName: customerName || 'Customer',
     customerPhone: customerPhone || '-',
     travelType: travelType || 'Train',
     fromCity: fromCity || '',
