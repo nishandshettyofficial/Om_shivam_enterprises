@@ -9,6 +9,7 @@ export function ShopProvider({ children }) {
   const [products] = useState(PRODUCTS);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All Items');
+  const [selectedBrand, setSelectedBrand] = useState('All Brands');
   const [sortBy, setSortBy] = useState('curated'); // 'curated', 'price-low', 'price-high', 'rating'
   const [viewMode, setViewMode] = useState('grid'); // 'grid' (4-col) or 'spacious' (3-col)
   
@@ -103,6 +104,8 @@ export function ShopProvider({ children }) {
         setSearchQuery,
         selectedCategory,
         setSelectedCategory,
+        selectedBrand,
+        setSelectedBrand,
         sortBy,
         setSortBy,
         viewMode,
