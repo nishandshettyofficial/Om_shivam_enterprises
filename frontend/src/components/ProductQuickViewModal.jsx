@@ -64,25 +64,25 @@ export default function ProductQuickViewModal() {
               className="max-h-80 max-w-full object-contain mix-blend-multiply transition-transform duration-500 hover:scale-105"
             />
             {product.badge && (
-              <span className="absolute top-5 left-5 bg-[#141416] text-[#FAF9F5] text-[10px] font-mono tracking-widest uppercase px-3 py-1 rounded-full font-semibold">
+              <span className="absolute top-5 left-5 bg-[#141416] text-[#FAF9F5] text-xs px-3 py-1 rounded-full font-semibold">
                 {product.badge}
               </span>
             )}
           </div>
 
-          {/* Right: Product Editorial Details */}
+          {/* Right: Product Details */}
           <div className="p-6 sm:p-8 flex flex-col justify-between space-y-6">
             
             <div className="space-y-3">
               {/* Category & Brand */}
-              <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-stone-500">
+              <div className="flex items-center gap-2 text-xs font-semibold text-stone-500">
                 <span>{product.brand}</span>
                 <span>•</span>
                 <span>{product.category}</span>
               </div>
 
               {/* Title */}
-              <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#141416] leading-snug">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#141416] leading-snug tracking-tight">
                 {product.name}
               </h2>
 
@@ -91,26 +91,25 @@ export default function ProductQuickViewModal() {
                 <div className="flex items-center gap-1.5 text-stone-800 font-medium">
                   <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                   <span>{product.rating}</span>
-                  <span className="text-stone-400">({product.reviewsCount} reviews)</span>
                 </div>
                 <span className="text-stone-300">|</span>
-                <span className="text-emerald-700 font-mono text-[11px] font-semibold flex items-center gap-1">
+                <span className="text-emerald-700 text-xs font-medium flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  Ready in 15 mins at shop
+                  Ready in 15 mins at counter
                 </span>
               </div>
 
               {/* Price Banner */}
               <div className="pt-2 flex items-baseline gap-3">
-                <span className="font-mono text-2xl font-bold text-[#141416]">
+                <span className="text-2xl font-black text-[#141416]">
                   ₹{product.price}
                 </span>
                 {product.mrp && product.mrp > product.price && (
                   <>
-                    <span className="text-sm text-stone-400 line-through font-mono">
+                    <span className="text-sm text-stone-400 line-through">
                       ₹{product.mrp}
                     </span>
-                    <span className="text-xs font-mono font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
+                    <span className="text-xs font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
                       {discountPercent}% OFF
                     </span>
                   </>
@@ -118,14 +117,14 @@ export default function ProductQuickViewModal() {
               </div>
 
               {/* Description */}
-              <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-light pt-1">
+              <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-normal pt-1">
                 {product.description}
               </p>
 
               {/* Specifications List */}
               {product.specs && product.specs.length > 0 && (
                 <div className="pt-2 space-y-1.5 border-t border-stone-100">
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-stone-400 font-bold block mb-1">
+                  <span className="text-xs text-stone-400 font-semibold block mb-1">
                     Key Specifications
                   </span>
                   {product.specs.map((spec, i) => (
@@ -151,7 +150,7 @@ export default function ProductQuickViewModal() {
                   >
                     <Minus className="w-3.5 h-3.5" />
                   </button>
-                  <span className="w-10 text-center font-mono font-bold text-sm text-[#141416]">
+                  <span className="w-10 text-center font-bold text-sm text-[#141416]">
                     {quantity}
                   </span>
                   <button
@@ -165,7 +164,7 @@ export default function ProductQuickViewModal() {
                 {/* Add to Bag Button */}
                 <button
                   onClick={handleAdd}
-                  className="flex-1 bg-[#141416] hover:bg-stone-800 text-[#FAF9F5] font-mono text-xs uppercase tracking-wider font-semibold py-3 px-6 rounded-full transition-all duration-200 flex items-center justify-center gap-2 shadow-atelier active:scale-98 cursor-pointer"
+                  className="flex-1 bg-[#141416] hover:bg-stone-800 text-[#FAF9F5] text-xs font-semibold py-3 px-6 rounded-full transition-all duration-200 flex items-center justify-center gap-2 shadow-atelier active:scale-98 cursor-pointer"
                 >
                   {justAdded ? (
                     <>

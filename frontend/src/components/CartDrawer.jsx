@@ -138,14 +138,14 @@ export default function CartDrawer() {
         {/* Header */}
         <div className="bg-[#141416] text-[#FAF9F5] p-5 flex items-center justify-between border-b border-white/10">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center font-serif text-sm font-bold text-atelier-300">
+            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-sm font-bold text-amber-300">
               OS
             </div>
             <div>
-              <h2 className="font-serif text-base font-bold text-white tracking-wide">
+              <h2 className="text-base font-bold text-white tracking-tight">
                 Your Order Bag
               </h2>
-              <p className="text-[11px] font-mono text-stone-400">
+              <p className="text-xs text-stone-400">
                 Pre-packed for in-store collection ({cartCount} items)
               </p>
             </div>
@@ -189,11 +189,11 @@ export default function CartDrawer() {
                 <Store className="w-8 h-8" />
               </div>
               <div>
-                <h3 className="font-serif text-lg font-bold text-[#141416]">
+                <h3 className="text-lg font-bold text-[#141416]">
                   Your bag is empty
                 </h3>
                 <p className="text-xs text-stone-500 max-w-xs mx-auto mt-1 leading-relaxed">
-                  Browse our stationery archive and tap "Add" to assemble your pickup order.
+                  Browse our stationery catalog and tap "Add" to assemble your pickup order.
                 </p>
               </div>
             </div>
@@ -352,15 +352,15 @@ export default function CartDrawer() {
               </div>
 
               {/* Order Cost Breakdown */}
-              <div className="bg-white rounded-2xl border border-warm-border p-4 space-y-2 font-mono text-xs shadow-xs">
+              <div className="bg-white rounded-2xl border border-warm-border p-4 space-y-2 text-xs shadow-xs">
                 <div className="flex justify-between text-stone-600">
                   <span>Bag Subtotal:</span>
-                  <span>₹{cartTotal}</span>
+                  <span className="font-semibold text-stone-900">₹{cartTotal}</span>
                 </div>
                 {cartSavings > 0 && (
                   <div className="flex justify-between text-emerald-700">
                     <span>Retail Savings:</span>
-                    <span>-₹{cartSavings}</span>
+                    <span className="font-semibold">-₹{cartSavings}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-stone-600">
@@ -368,10 +368,10 @@ export default function CartDrawer() {
                   <span className="text-emerald-600 font-semibold">Complimentary</span>
                 </div>
                 <div className="pt-2 border-t border-stone-100 flex justify-between items-baseline font-bold text-sm text-[#141416]">
-                  <span className="font-serif">Total Payable at Counter:</span>
-                  <span className="text-lg">₹{cartTotal}</span>
+                  <span>Total Payable at Counter:</span>
+                  <span className="text-lg font-black">₹{cartTotal}</span>
                 </div>
-                <span className="text-[10px] text-stone-400 block text-right font-sans">
+                <span className="text-[11px] text-stone-400 block text-right font-normal">
                   Pay via Cash, UPI QR or Card upon inspecting your items.
                 </span>
               </div>
@@ -385,7 +385,7 @@ export default function CartDrawer() {
             {/* Primary Action 1: WhatsApp Dispatch */}
             <button
               onClick={handleSendWhatsApp}
-              className="w-full bg-[#141416] hover:bg-stone-800 text-[#FAF9F5] font-mono text-xs uppercase tracking-wider font-semibold py-3.5 px-4 rounded-full shadow-atelier flex items-center justify-center gap-2 transition-all duration-200 active:scale-98 cursor-pointer"
+              className="w-full bg-[#141416] hover:bg-stone-800 text-[#FAF9F5] text-xs font-semibold py-3.5 px-4 rounded-full shadow-atelier flex items-center justify-center gap-2 transition-all duration-200 active:scale-98 cursor-pointer"
             >
               <MessageSquare className="w-4 h-4 text-emerald-400" />
               <span>Send Order to Shop via WhatsApp (₹{cartTotal})</span>
@@ -394,7 +394,7 @@ export default function CartDrawer() {
             {/* Action 2: Generate Slip */}
             <button
               onClick={handleGenerateSlip}
-              className="w-full bg-[#F4F2EC] hover:bg-stone-200/80 text-[#141416] border border-warm-border font-mono text-xs uppercase tracking-wider font-semibold py-3 px-4 rounded-full transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full bg-[#F4F2EC] hover:bg-stone-200/80 text-[#141416] border border-warm-border text-xs font-semibold py-3 px-4 rounded-full transition-colors flex items-center justify-center gap-2 cursor-pointer"
             >
               <FileText className="w-4 h-4 text-stone-600" />
               <span>Generate In-Store Pickup Pass</span>

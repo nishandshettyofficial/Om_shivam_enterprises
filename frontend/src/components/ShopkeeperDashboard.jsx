@@ -113,12 +113,12 @@ export default function ShopkeeperDashboard() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-serif text-lg font-bold border border-amber-400/30">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold border border-amber-400/30">
               OS
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="font-serif text-lg font-bold text-white tracking-wide">
+                <h1 className="text-base font-bold text-white tracking-wide">
                   {STORE_CONFIG.name}
                 </h1>
                 <span className="bg-amber-500 text-stone-900 text-[10px] font-mono font-bold px-2 py-0.5 rounded-full">
@@ -376,7 +376,7 @@ export default function ShopkeeperDashboard() {
         {activeTab === 'inventory' && (
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-warm-border shadow-atelier space-y-6">
             <div>
-              <h3 className="font-serif text-xl font-bold text-[#141416]">
+              <h3 className="text-xl font-bold text-[#141416]">
                 Instant In-Store Stock Manager
               </h3>
               <p className="text-xs text-stone-500 font-light mt-1">
@@ -401,7 +401,7 @@ export default function ShopkeeperDashboard() {
                         <span className="text-[10px] font-mono text-stone-400 uppercase tracking-widest block">
                           {p.brand} • {p.category}
                         </span>
-                        <h4 className="font-serif text-sm font-bold text-[#141416]">
+                        <h4 className="text-sm font-bold text-[#141416]">
                           {p.name}
                         </h4>
                         <span className="font-mono text-xs text-stone-600 font-semibold">

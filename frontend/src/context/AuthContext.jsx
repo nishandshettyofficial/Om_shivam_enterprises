@@ -14,11 +14,9 @@ export function AuthProvider({ children }) {
     }
   });
 
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authModalMode, setAuthModalMode] = useState('register'); // 'register' | 'login' | 'reset'
   const [pendingAction, setPendingAction] = useState(null);
   
-  // Navigation View: 'catalog' | 'user-dashboard' | 'shopkeeper-dashboard'
+  // Navigation View: 'catalog' | 'user-dashboard' | 'shopkeeper-dashboard' | 'signin'
   const [currentView, setCurrentView] = useState('catalog');
 
   useEffect(() => {
@@ -32,7 +30,6 @@ export function AuthProvider({ children }) {
   // Login handler
   const login = (userData) => {
     setCurrentUser(userData);
-    setIsAuthModalOpen(false);
 
     // Auto-redirect based on role
     if (userData.role === 'shopkeeper') {
@@ -41,6 +38,9 @@ export function AuthProvider({ children }) {
       if (pendingAction) {
         pendingAction();
         setPendingAction(null);
+        setCurrentView('catalog');
+      } else {
+        setCurrentView('user-dashboard');
       }
     }
   };
@@ -48,7 +48,6 @@ export function AuthProvider({ children }) {
   // Register handler
   const register = (userData) => {
     setCurrentUser(userData);
-    setIsAuthModalOpen(false);
 
     if (userData.role === 'shopkeeper') {
       setCurrentView('shopkeeper-dashboard');
@@ -56,6 +55,9 @@ export function AuthProvider({ children }) {
       if (pendingAction) {
         pendingAction();
         setPendingAction(null);
+        setCurrentView('catalog');
+      } else {
+        setCurrentView('user-dashboard');
       }
     }
   };
@@ -66,22 +68,20 @@ export function AuthProvider({ children }) {
     setCurrentView('catalog');
   };
 
-  // Gatekeeper: if logged in, do action; if guest, open auth modal and queue action
+  // Gatekeeper: if logged in, do action; if guest, navigate to professional sign in page
   const requireAuth = (callback) => {
     if (currentUser) {
       callback();
     } else {
       setPendingAction(() => callback);
-      setAuthModalMode('register');
-      setIsAuthModalOpen(true);
+      setCurrentView('signin');
     }
   };
 
   // Skip auth for now
   const skipForNow = () => {
-    setIsAuthModalOpen(false);
+    setCurrentView('catalog');
     if (pendingAction) {
-      // Execute the pending action even in guest mode!
       pendingAction();
       setPendingAction(null);
     }
@@ -97,19 +97,20 @@ export function AuthProvider({ children }) {
     });
   };
 
-  // 1-Tap Google Sign-In handler (100% Free Lifetime)
+  // 1-Tap Google Sign-In handler
   const loginWithGoogle = (googleUserData = {}) => {
     const email = googleUserData.email || 'customer@gmail.com';
+    const customerName = googleUserData.name || 'Rahul Sharma';
     const cleanHandle = googleUserData.handle || `@${email.split('@')[0].replace(/[^a-zA-Z0-9_]/g, '_')}`;
     
     const user = {
       id: googleUserData.id || `goog_${Date.now()}`,
-      name: googleUserData.name || 'Customer',
+      name: customerName,
       email: email,
-      photo: googleUserData.picture || '',
+      photo: googleUserData.picture || googleUserData.photo || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80',
       handle: cleanHandle,
       phone: googleUserData.phone || '',
-      role: (email === 'omshivam.stationery@gmail.com' || googleUserData.role === 'shopkeeper') ? 'shopkeeper' : 'customer',
+      role: (email === 'admin@omshivam.com' || googleUserData.role === 'shopkeeper') ? 'shopkeeper' : 'customer',
       authProvider: 'google',
       createdAt: new Date().toISOString()
     };
@@ -123,10 +124,6 @@ export function AuthProvider({ children }) {
         currentUser,
         isLoggedIn: !!currentUser,
         isShopkeeper: currentUser?.role === 'shopkeeper',
-        isAuthModalOpen,
-        setIsAuthModalOpen,
-        authModalMode,
-        setAuthModalMode,
         currentView,
         setCurrentView,
         login,
@@ -135,7 +132,12 @@ export function AuthProvider({ children }) {
         updateProfile,
         logout,
         requireAuth,
-        skipForNow
+        skipForNow,
+        // Legacy compatibility shims so older components do not break
+        isAuthModalOpen: false,
+        setIsAuthModalOpen: (val) => { if (val) setCurrentView('signin'); },
+        authModalMode: 'login',
+        setAuthModalMode: () => {}
       }}
     >
       {children}

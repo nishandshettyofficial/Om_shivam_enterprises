@@ -22,20 +22,20 @@ export default function Footer() {
           {/* Brand Col */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center font-serif text-lg font-bold">
+              <div className="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center text-base font-bold">
                 {STORE_CONFIG.monogram}
               </div>
               <div>
-                <span className="font-serif text-xl font-bold tracking-tight block text-white">
+                <span className="text-lg font-bold tracking-tight block text-white">
                   {STORE_CONFIG.name}
                 </span>
-                <span className="font-mono text-[10px] text-stone-400 block tracking-wide">
+                <span className="text-xs text-stone-400 block tracking-normal">
                   {STORE_CONFIG.subtitle}
                 </span>
               </div>
             </div>
 
-            <p className="text-xs text-stone-400 font-light leading-relaxed max-w-sm">
+            <p className="text-xs text-stone-400 font-normal leading-relaxed max-w-sm">
               All your daily needs in one place. Authentic stationery, school and office essentials, photocopies, printouts, and travel tickets with fast counter collection.
             </p>
 
@@ -44,7 +44,7 @@ export default function Footer() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span className="text-[11px] font-mono text-emerald-400">
+              <span className="text-xs text-emerald-400 font-medium">
                 In-Store Collection Open Today
               </span>
             </div>
@@ -52,10 +52,10 @@ export default function Footer() {
 
           {/* Quick Categories Col */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="font-mono text-xs uppercase tracking-widest text-stone-400 font-semibold">
+            <h4 className="text-xs font-semibold text-stone-300">
               Categories
             </h4>
-            <ul className="space-y-2 text-xs text-stone-300 font-light">
+            <ul className="space-y-2 text-xs text-stone-400">
               {CATEGORIES.slice(1, 7).map((cat) => (
                 <li key={cat}>
                   <button
@@ -71,15 +71,15 @@ export default function Footer() {
 
           {/* Hours & Address */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="font-mono text-xs uppercase tracking-widest text-stone-400 font-semibold">
+            <h4 className="text-xs font-semibold text-stone-300">
               Counter Hours & Location
             </h4>
-            <div className="space-y-2 text-xs text-stone-300 font-light">
+            <div className="space-y-2 text-xs text-stone-300">
               <div className="flex items-start gap-2">
                 <Clock className="w-3.5 h-3.5 text-[#D97706] shrink-0 mt-0.5" />
                 <div>
                   <div className="font-medium text-white">{STORE_CONFIG.hours.weekdays}</div>
-                  <div className="text-stone-400 text-[11px]">{STORE_CONFIG.hours.sunday}</div>
+                  <div className="text-stone-400 text-xs">{STORE_CONFIG.hours.sunday}</div>
                 </div>
               </div>
 
@@ -91,8 +91,8 @@ export default function Footer() {
                 title="View OM SHIVAM ENTERPRISES on Google Maps"
               >
                 <MapPin className="w-3.5 h-3.5 text-[#D97706] shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                <div className="text-stone-400 group-hover:text-stone-200 text-[11px] leading-relaxed">
-                  <span className="font-medium text-white flex items-center gap-1">
+                <div className="text-stone-400 group-hover:text-stone-200 text-xs leading-relaxed">
+                  <span className="font-semibold text-white flex items-center gap-1">
                     {STORE_CONFIG.name}
                     <ArrowUpRight className="w-3 h-3 text-stone-400 group-hover:text-white transition-colors" />
                   </span>

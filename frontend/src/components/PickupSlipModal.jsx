@@ -51,10 +51,10 @@ export default function PickupSlipModal() {
               <CheckCircle2 className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="font-serif text-base font-bold text-white tracking-wide">
+              <h2 className="text-base font-bold text-white tracking-tight">
                 Store Pickup Pass Confirmed
               </h2>
-              <p className="text-[10px] font-mono tracking-widest uppercase text-stone-400">
+              <p className="text-xs text-stone-400">
                 {STORE_CONFIG.name} • Counter Collection
               </p>
             </div>
@@ -178,7 +178,7 @@ export default function PickupSlipModal() {
           <div className="pt-1 flex gap-2">
             <button
               onClick={handleShareWhatsApp}
-              className="flex-1 bg-[#141416] hover:bg-stone-800 text-[#FAF9F5] font-mono text-xs uppercase tracking-wider font-semibold py-3 px-4 rounded-full shadow-atelier flex items-center justify-center gap-2 cursor-pointer transition-colors"
+              className="flex-1 bg-[#141416] hover:bg-stone-800 text-[#FAF9F5] text-xs font-semibold py-3 px-4 rounded-full shadow-atelier flex items-center justify-center gap-2 cursor-pointer transition-colors"
             >
               <MessageSquare className="w-4 h-4 text-emerald-400" />
               <span>Share WhatsApp</span>
@@ -186,7 +186,7 @@ export default function PickupSlipModal() {
 
             <button
               onClick={handlePrint}
-              className="px-4 py-3 bg-white hover:bg-stone-100 text-stone-800 border border-warm-border rounded-full text-xs font-mono font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+              className="px-4 py-3 bg-white hover:bg-stone-100 text-stone-800 border border-warm-border rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
               title="Print slip"
             >
               <Printer className="w-4 h-4" />
@@ -195,7 +195,7 @@ export default function PickupSlipModal() {
 
             <button
               onClick={() => setPickupSlip(null)}
-              className="px-4 py-3 bg-[#F4F2EC] hover:bg-stone-200 text-stone-700 rounded-full text-xs font-mono font-semibold transition-colors cursor-pointer"
+              className="px-4 py-3 bg-[#F4F2EC] hover:bg-stone-200 text-stone-700 rounded-full text-xs font-semibold transition-colors cursor-pointer"
             >
               Close
             </button>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useShop } from '../context/ShopContext';
 import { STORE_CONFIG } from '../constants/store';
+import PrintStudio from './PrintStudio';
 import {
   User,
   ShoppingBag,
@@ -118,7 +119,7 @@ export default function UserDashboard() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-serif text-2xl font-bold border border-amber-400/30 overflow-hidden shrink-0">
+            <div className="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl font-bold border border-amber-400/30 overflow-hidden shrink-0">
               {currentUser?.photo ? (
                 <img src={currentUser.photo} alt={currentUser.name} className="w-full h-full object-cover" />
               ) : (
@@ -128,19 +129,16 @@ export default function UserDashboard() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-mono text-lg font-bold text-white tracking-wide">
-                  {currentUser?.handle || '@customer'}
-                </span>
-                <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-mono px-2 py-0.5 rounded-full border border-emerald-500/30">
-                  {currentUser?.authProvider === 'google' ? 'Google Verified' : 'Verified Customer'}
+                  {currentUser?.name || 'Customer'}
                 </span>
               </div>
 
               {!isEditingProfile ? (
                 <div className="mt-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-white">
-                      {currentUser?.name || 'Customer'}
-                    </span>
+                    <p className="text-xs text-stone-400 font-sans">
+                      {currentUser?.phone ? `+91 ${currentUser.phone}` : (currentUser?.email || '')}
+                    </p>
                     <button
                       onClick={() => {
                         setEditName(currentUser?.name || '');
@@ -148,15 +146,12 @@ export default function UserDashboard() {
                         setIsEditingProfile(true);
                       }}
                       className="text-[11px] font-mono text-amber-300 hover:text-amber-200 flex items-center gap-1 underline underline-offset-2 cursor-pointer transition-colors"
-                      title="Edit your display name"
+                      title="Edit your details"
                     >
                       <Edit3 className="w-3 h-3" />
-                      <span>Edit Name</span>
+                      <span>Edit</span>
                     </button>
                   </div>
-                  <p className="text-xs text-stone-400 font-sans mt-0.5">
-                    {currentUser?.phone ? `+91 ${currentUser.phone}` : (currentUser?.email || 'Store Customer')}
-                  </p>
                 </div>
               ) : (
                 <form onSubmit={handleSaveProfile} className="mt-2 space-y-2 bg-white/5 p-3 rounded-xl border border-white/10">
@@ -269,7 +264,7 @@ export default function UserDashboard() {
           <div className="space-y-6">
             
             <div className="flex items-center justify-between pb-2 border-b border-warm-border">
-              <h3 className="font-serif text-xl font-bold text-[#141416]">
+              <h3 className="text-xl font-bold text-[#141416]">
                 Your Counter Collection Orders
               </h3>
               <button
@@ -380,114 +375,8 @@ export default function UserDashboard() {
 
         {/* Tab 2: Xerox & Print Jobs */}
         {activeTab === 'print' && (
-          <div className="max-w-2xl bg-white rounded-3xl p-6 sm:p-8 border border-warm-border shadow-atelier space-y-6">
-            <div>
-              <h3 className="font-serif text-xl font-bold text-[#141416]">
-                Xerox, Printout & Document Binding Desk
-              </h3>
-              <p className="text-xs text-stone-500 font-light mt-1">
-                Upload or queue your PDF files directly to OM SHIVAM ENTERPRISES. We keep your printed pages stapled, spiral-bound, and ready for pickup!
-              </p>
-            </div>
-
-            {printSubmitted ? (
-              <div className="p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center space-y-2">
-                <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto" />
-                <h4 className="font-serif text-base font-bold text-emerald-900">
-                  Print Job Sent to Counter!
-                </h4>
-                <p className="text-xs text-emerald-700">
-                  Our Xerox department is processing your request. Please collect at counter #1.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handlePrintSubmit} className="space-y-4">
-                
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-stone-600 font-semibold mb-1">
-                    Document Title / PDF Name
-                  </label>
-                  <input
-                    type="text"
-                    value={printFileName}
-                    onChange={(e) => setPrintFileName(e.target.value)}
-                    placeholder="e.g. Project_Report_Final.pdf or Adhaar_Card.pdf"
-                    className="w-full bg-[#F4F2EC] border border-warm-border rounded-xl p-3 text-xs focus:ring-1 focus:ring-[#141416] focus:outline-none"
-                    required
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-stone-600 font-semibold mb-1">
-                      Print Colour Option
-                    </label>
-                    <select
-                      value={printType}
-                      onChange={(e) => setPrintType(e.target.value)}
-                      className="w-full bg-[#F4F2EC] border border-warm-border rounded-xl p-3 text-xs font-mono focus:ring-1 focus:ring-[#141416] focus:outline-none cursor-pointer"
-                    >
-                      <option>Black & White (₹2/page)</option>
-                      <option>Full Color Laser (₹10/page)</option>
-                      <option>Glossy Photo Paper (₹25/sheet)</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-stone-600 font-semibold mb-1">
-                      Number of Copies
-                    </label>
-                    <input
-                      type="number"
-                      min={1}
-                      max={50}
-                      value={copies}
-                      onChange={(e) => setCopies(e.target.value)}
-                      className="w-full bg-[#F4F2EC] border border-warm-border rounded-xl p-3 text-xs font-mono focus:ring-1 focus:ring-[#141416] focus:outline-none"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-stone-600 font-semibold mb-1">
-                    Binding & Finishing
-                  </label>
-                  <select
-                    value={binding}
-                    onChange={(e) => setBinding(e.target.value)}
-                    className="w-full bg-[#F4F2EC] border border-warm-border rounded-xl p-3 text-xs font-mono focus:ring-1 focus:ring-[#141416] focus:outline-none cursor-pointer"
-                  >
-                    <option>None (Corner Stapled)</option>
-                    <option>Plastic Spiral Binding with Transparent Cover (₹35)</option>
-                    <option>Hardbound Project Binding with Golden Emboss (₹180)</option>
-                    <option>Thermal Lamination per page (₹15)</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-stone-600 font-semibold mb-1">
-                    Special Instructions (Optional)
-                  </label>
-                  <textarea
-                    rows={2}
-                    value={printRemarks}
-                    onChange={(e) => setPrintRemarks(e.target.value)}
-                    placeholder="e.g. Double sided print, first 2 pages in color, pick up in 20 minutes..."
-                    className="w-full bg-[#F4F2EC] border border-warm-border rounded-xl p-3 text-xs focus:ring-1 focus:ring-[#141416] focus:outline-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-[#141416] hover:bg-stone-800 text-white font-mono text-xs uppercase tracking-wider font-semibold py-3.5 px-4 rounded-full shadow-atelier transition-colors cursor-pointer"
-                >
-                  Submit Print Job to Counter
-                </button>
-
-              </form>
-            )}
-
+          <div className="max-w-3xl">
+            <PrintStudio isModal={false} />
           </div>
         )}
 
@@ -495,7 +384,7 @@ export default function UserDashboard() {
         {activeTab === 'travel' && (
           <div className="max-w-2xl bg-white rounded-3xl p-6 sm:p-8 border border-warm-border shadow-atelier space-y-6">
             <div>
-              <h3 className="font-serif text-xl font-bold text-[#141416]">
+              <h3 className="text-xl font-bold text-[#141416]">
                 Train, Flight & Bus Ticket Counter Booking
               </h3>
               <p className="text-xs text-stone-500 font-light mt-1">
