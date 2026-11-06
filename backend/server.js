@@ -20,6 +20,7 @@ const travelRequests = [];
 // Seed Default Accounts
 users.set('8147228162', {
   phone: '8147228162',
+  email: 'admin@omshivam.com',
   handle: '@om_shivam_admin',
   name: 'Store Manager',
   pin: '1234',
@@ -29,6 +30,7 @@ users.set('8147228162', {
 
 users.set('918147228162', {
   phone: '918147228162',
+  email: 'admin@omshivam.com',
   handle: '@om_shivam_admin',
   name: 'Store Manager',
   pin: '1234',
@@ -38,6 +40,7 @@ users.set('918147228162', {
 
 users.set('9876543210', {
   phone: '9876543210',
+  email: 'rahul@gmail.com',
   handle: '@rahul_01',
   name: 'Rahul Sharma',
   pin: '1234',
@@ -148,29 +151,41 @@ app.post('/api/auth/generate-verification-code', (req, res) => {
   });
 });
 
-// Register User
+// Register User (Direct, Instant, Professional)
 app.post('/api/auth/register', (req, res) => {
-  const { phone, handle, pin, name } = req.body;
+  const { phone, email, handle, pin, name, password } = req.body;
+  const userPin = pin || password;
 
-  if (!phone || !handle || !pin) {
-    return res.status(400).json({ error: 'Phone, unique handle, and 4-digit PIN are required.' });
+  if (!phone || !userPin) {
+    return res.status(400).json({ error: 'Valid 10-digit mobile number and PIN/password are required.' });
   }
 
   const cleanPhone = phone.replace(/\D/g, '').slice(-10);
-  const cleanHandle = handle.startsWith('@') ? handle.toLowerCase() : `@${handle.toLowerCase()}`;
+  if (cleanPhone.length !== 10) {
+    return res.status(400).json({ error: 'Please enter a valid 10-digit mobile number.' });
+  }
 
-  // Check if handle already exists
-  for (const [key, user] of users.entries()) {
-    if (user.handle.toLowerCase() === cleanHandle && key !== cleanPhone) {
-      return res.status(400).json({ error: `${cleanHandle} is already registered. Please choose another.` });
+  // Generate clean handle if not provided
+  let cleanHandle = handle ? (handle.startsWith('@') ? handle.toLowerCase() : `@${handle.toLowerCase()}`) : null;
+  if (!cleanHandle) {
+    if (name) {
+      cleanHandle = `@${name.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
+    } else {
+      cleanHandle = `@user_${cleanPhone.slice(-4)}`;
     }
+  }
+
+  // Check if phone already registered
+  if (users.has(cleanPhone)) {
+    return res.status(409).json({ error: 'An account with this mobile number already exists. Please sign in.' });
   }
 
   const newUser = {
     phone: cleanPhone,
+    email: email || '',
     handle: cleanHandle,
-    name: name || cleanHandle.replace('@', ''),
-    pin: pin.toString(),
+    name: name?.trim() || cleanHandle.replace('@', ''),
+    pin: userPin.toString(),
     role: (cleanPhone === '8147228162' || cleanPhone === '918147228162' || cleanHandle === '@om_shivam_admin') ? 'shopkeeper' : 'customer',
     createdAt: new Date().toISOString()
   };
@@ -179,9 +194,10 @@ app.post('/api/auth/register', (req, res) => {
 
   return res.status(201).json({
     success: true,
-    message: 'Registered successfully',
+    message: 'Account created successfully',
     user: {
       phone: newUser.phone,
+      email: newUser.email,
       handle: newUser.handle,
       name: newUser.name,
       role: newUser.role
@@ -191,35 +207,42 @@ app.post('/api/auth/register', (req, res) => {
 
 // Login User / Shopkeeper
 app.post('/api/auth/login', (req, res) => {
-  const { identifier, pin } = req.body; // identifier can be mobile number or @handle
+  const { identifier, pin, password } = req.body; // identifier can be mobile, email, or @handle
+  const userPin = pin || password;
 
-  if (!identifier || !pin) {
-    return res.status(400).json({ error: 'Mobile number or @handle and 4-digit PIN are required.' });
+  if (!identifier || !userPin) {
+    return res.status(400).json({ error: 'Mobile number/email and PIN/password are required.' });
   }
 
   const cleanInput = identifier.trim().toLowerCase();
+  const digitsOnly = cleanInput.replace(/\D/g, '').slice(-10);
   let foundUser = null;
 
   for (const user of users.values()) {
-    if (user.phone === cleanInput.replace(/\D/g, '').slice(-10) || user.handle.toLowerCase() === cleanInput) {
+    if (
+      (digitsOnly && user.phone === digitsOnly) ||
+      (user.email && user.email.toLowerCase() === cleanInput) ||
+      (user.handle && user.handle.toLowerCase() === cleanInput)
+    ) {
       foundUser = user;
       break;
     }
   }
 
   if (!foundUser) {
-    return res.status(404).json({ error: 'Account not found with this mobile number or @handle.' });
+    return res.status(404).json({ error: 'No account found with these credentials.' });
   }
 
-  if (foundUser.pin !== pin.toString()) {
-    return res.status(401).json({ error: 'Invalid 4-digit PIN. Please try again or reset.' });
+  if (foundUser.pin !== userPin.toString()) {
+    return res.status(401).json({ error: 'Invalid PIN or password. Please try again.' });
   }
 
   return res.json({
     success: true,
-    message: `Signed in as ${foundUser.handle}`,
+    message: `Welcome back, ${foundUser.name}!`,
     user: {
       phone: foundUser.phone,
+      email: foundUser.email,
       handle: foundUser.handle,
       name: foundUser.name,
       role: foundUser.role
