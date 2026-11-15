@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useShop } from '../context/ShopContext';
 import { useAuth } from '../context/AuthContext';
+import { UserButton } from '@clerk/react';
 import { STORE_CONFIG } from '../constants/store';
 import {
   Search,
@@ -178,27 +179,30 @@ export default function Header({ onToggleMobileSidebar, onOpenPrintModal }) {
               <span className="sm:hidden font-bold">Chat</span>
             </a>
 
-            {/* Account / Dashboard Button */}
+            {/* Account / Dashboard Button & Clerk UserButton */}
             {isLoggedIn ? (
-              isShopkeeper ? (
-                <button
-                  onClick={() => setCurrentView(currentView === 'shopkeeper-dashboard' ? 'catalog' : 'shopkeeper-dashboard')}
-                  className="flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer"
-                  title="Switch between Shopkeeper Counter Hub and Public Catalog"
-                >
-                  <Store className="w-3.5 h-3.5 text-amber-700" />
-                  <span className="hidden sm:inline">{currentView === 'shopkeeper-dashboard' ? 'Catalog' : 'Counter Hub'}</span>
-                </button>
-              ) : (
-                <button
-                  onClick={() => setCurrentView(currentView === 'user-dashboard' ? 'catalog' : 'user-dashboard')}
-                  className="flex items-center gap-1.5 bg-[#F4F2EC] hover:bg-stone-200/80 text-stone-800 border border-warm-border px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer"
-                  title="Open Your Account & Orders"
-                >
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="max-w-[90px] truncate">{currentView === 'user-dashboard' ? 'Catalog' : currentUser?.handle || 'Account'}</span>
-                </button>
-              )
+              <div className="flex items-center gap-2">
+                {isShopkeeper ? (
+                  <button
+                    onClick={() => setCurrentView(currentView === 'shopkeeper-dashboard' ? 'catalog' : 'shopkeeper-dashboard')}
+                    className="flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer"
+                    title="Switch between Shopkeeper Counter Hub and Public Catalog"
+                  >
+                    <Store className="w-3.5 h-3.5 text-amber-700" />
+                    <span className="hidden sm:inline">{currentView === 'shopkeeper-dashboard' ? 'Catalog' : 'Counter Hub'}</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setCurrentView(currentView === 'user-dashboard' ? 'catalog' : 'user-dashboard')}
+                    className="flex items-center gap-1.5 bg-[#F4F2EC] hover:bg-stone-200/80 text-stone-800 border border-warm-border px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer"
+                    title="Open Your Account & Orders"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="max-w-[90px] truncate">{currentView === 'user-dashboard' ? 'Catalog' : currentUser?.handle || 'Account'}</span>
+                  </button>
+                )}
+                <UserButton afterSignOutUrl="/" />
+              </div>
             ) : (
               <button
                 onClick={() => setCurrentView('signin')}
