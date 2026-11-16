@@ -129,13 +129,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-stone-500">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-stone-500 text-center sm:text-left">
           <div>
             © {new Date().getFullYear()} {STORE_CONFIG.name}. All rights reserved.
           </div>
-          <div className="flex items-center gap-6">
-            <span>Stationery, Xerox, Printing & Travel Tickets</span>
-            <span>•</span>
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 sm:gap-4 text-stone-400">
+            <span>Stationery, Xerox & Printing</span>
+            <span className="hidden sm:inline">•</span>
             <span>15-Minute Counter Collection</span>
           </div>
         </div>

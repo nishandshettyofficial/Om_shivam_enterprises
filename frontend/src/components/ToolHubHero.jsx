@@ -4,16 +4,16 @@ import { UploadCloud, ShoppingBag, Clock, Printer, Store, MapPin } from 'lucide-
 
 export default function ToolHubHero({ onOpenPrintModal, onExploreCatalog }) {
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#121215] via-[#1A1A22] to-[#14141A] text-white border border-white/10 p-6 sm:p-9 shadow-2xl">
+    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#121215] via-[#1A1A22] to-[#14141A] text-white border border-white/10 p-5 sm:p-7 md:p-9 shadow-2xl">
       
       {/* Decorative Ambient Radial Mesh Glows */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3" />
       <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none translate-y-1/3" />
 
-      <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+      <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 sm:gap-8">
         
         {/* Left Column: Store Heading, Genuine Description & Action Buttons */}
-        <div className="max-w-2xl space-y-4">
+        <div className="max-w-2xl space-y-3 sm:space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-xs text-amber-300 font-medium">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span>Store Counter Open</span>
@@ -21,7 +21,7 @@ export default function ToolHubHero({ onOpenPrintModal, onExploreCatalog }) {
             <span className="text-stone-300">BMS College Road, Bengaluru</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
             Stationery, Xerox & Printing, School & Office Supplies
           </h1>
 
@@ -30,7 +30,7 @@ export default function ToolHubHero({ onOpenPrintModal, onExploreCatalog }) {
           </p>
 
           {/* Action Button Row */}
-          <div className="flex flex-wrap items-center gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 pt-2">
             
             {/* Martin Mroč Shader Upload Button */}
             <ShaderButton
@@ -56,7 +56,7 @@ export default function ToolHubHero({ onOpenPrintModal, onExploreCatalog }) {
         </div>
 
         {/* Right Column: Real Store Metrics Grid */}
-        <div className="w-full lg:w-auto grid grid-cols-2 gap-3 shrink-0">
+        <div className="w-full lg:w-auto grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-2.5 sm:gap-3 shrink-0">
           
           <div className="p-4 rounded-2xl bg-white/[0.05] border border-white/10 backdrop-blur-md space-y-1">
             <div className="flex items-center gap-2 text-amber-400 text-xs font-medium">

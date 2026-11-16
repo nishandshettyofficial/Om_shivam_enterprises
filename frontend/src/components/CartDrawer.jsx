@@ -381,14 +381,14 @@ export default function CartDrawer() {
 
         {/* Footer CTAs */}
         {cart.length > 0 && (
-          <div className="p-5 bg-white border-t border-warm-border space-y-2.5">
+          <div className="p-4 sm:p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] bg-white border-t border-warm-border space-y-2.5">
             {/* Primary Action 1: WhatsApp Dispatch */}
             <button
               onClick={handleSendWhatsApp}
               className="w-full bg-[#141416] hover:bg-stone-800 text-[#FAF9F5] text-xs font-semibold py-3.5 px-4 rounded-full shadow-atelier flex items-center justify-center gap-2 transition-all duration-200 active:scale-98 cursor-pointer"
             >
-              <MessageSquare className="w-4 h-4 text-emerald-400" />
-              <span>Send Order to Shop via WhatsApp (₹{cartTotal})</span>
+              <MessageSquare className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span className="truncate">Send Order via WhatsApp (₹{cartTotal})</span>
             </button>
 
             {/* Action 2: Generate Slip */}

@@ -44,7 +44,7 @@ export default function ProductQuickViewModal() {
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl border border-warm-border overflow-hidden z-10 animate-fade-in my-8">
+      <div className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl border border-warm-border overflow-hidden z-10 animate-fade-in my-6 sm:my-8 max-h-[92vh] overflow-y-auto">
         
         {/* Close Button */}
         <button

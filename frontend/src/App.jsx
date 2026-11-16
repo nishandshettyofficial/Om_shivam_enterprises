@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useShop } from './context/ShopContext';
 import { useAuth } from './context/AuthContext';
 import { CATEGORIES, BRANDS, smartMatch } from './data/products';
@@ -36,10 +36,26 @@ export default function App() {
 
   const { currentView, setCurrentView } = useAuth();
 
-  // Sidebar and Modal State (ToolHub dashboard style)
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  // Sidebar and Modal State with Smart Viewport Detection
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 1180; // auto-collapse to compact rail on tablet / smaller laptops
+    }
+    return false;
+  });
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
+
+  // Auto-adapt sidebar state when screen is resized
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setIsSidebarCollapsed(true);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Filter and sort products
   const processedProducts = useMemo(() => {
@@ -272,12 +288,14 @@ export default function App() {
                 </div>
               </div>
             ) : (
-              /* Products Grid with dynamic viewMode */
+              /* Products Grid with adaptive column sizing */
               <div
-                className={`grid gap-4 sm:gap-6 ${
+                className={`grid gap-3 sm:gap-4 lg:gap-6 ${
                   viewMode === 'spacious'
                     ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
-                    : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'
+                    : isSidebarCollapsed
+                    ? 'grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
+                    : 'grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
                 }`}
               >
                 {processedProducts.map((product) => (
@@ -289,12 +307,12 @@ export default function App() {
           </main>
         )}
 
-        {/* Floating Mobile Cart Bar */}
+        {/* Floating Mobile Cart Bar with iOS safe area support */}
         {cartCount > 0 && (
-          <div className="sm:hidden fixed bottom-4 left-4 right-4 z-40 animate-slide-up">
+          <div className="sm:hidden fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-3 right-3 z-40 animate-slide-up">
             <button
               onClick={() => setIsCartOpen(true)}
-              className="w-full bg-[#141416] text-[#FAF9F5] p-3.5 rounded-2xl shadow-2xl flex items-center justify-between border border-white/20 active:scale-98 transition-transform"
+              className="w-full bg-[#141416] text-[#FAF9F5] p-3.5 rounded-2xl shadow-2xl flex items-center justify-between border border-white/20 active:scale-98 transition-transform cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <span className="bg-[#D97706] text-white text-[10px] font-bold rounded-full w-6 h-6 flex items-center justify-center">

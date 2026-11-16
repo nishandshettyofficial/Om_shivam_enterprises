@@ -202,11 +202,11 @@ export default function ShopkeeperDashboard() {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex items-center justify-between gap-4 border-b border-warm-border pb-3">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-warm-border pb-3">
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
             <button
               onClick={() => setActiveTab('orders')}
-              className={`py-2 px-4 rounded-full font-mono text-xs font-semibold transition-all cursor-pointer ${
+              className={`py-2 px-3.5 sm:px-4 rounded-full font-mono text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 activeTab === 'orders'
                   ? 'bg-[#141416] text-white shadow-xs'
                   : 'bg-white text-stone-700 hover:bg-stone-100 border border-warm-border'
@@ -216,18 +216,18 @@ export default function ShopkeeperDashboard() {
             </button>
             <button
               onClick={() => setActiveTab('inventory')}
-              className={`py-2 px-4 rounded-full font-mono text-xs font-semibold transition-all cursor-pointer ${
+              className={`py-2 px-3.5 sm:px-4 rounded-full font-mono text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 activeTab === 'inventory'
                   ? 'bg-[#141416] text-white shadow-xs'
                   : 'bg-white text-stone-700 hover:bg-stone-100 border border-warm-border'
               }`}
             >
-              Stock & Availability Manager
+              Stock Manager
             </button>
           </div>
 
           {activeTab === 'orders' && (
-            <div className="flex items-center gap-1.5 font-mono text-xs bg-white border border-warm-border p-1 rounded-full">
+            <div className="flex items-center gap-1.5 font-mono text-xs bg-white border border-warm-border p-1 rounded-full self-start sm:self-auto">
               {['ALL', 'ACTIVE', 'COLLECTED'].map((filter) => (
                 <button
                   key={filter}

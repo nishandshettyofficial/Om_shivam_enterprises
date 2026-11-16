@@ -76,7 +76,7 @@ export default function Header({ onToggleMobileSidebar, onOpenPrintModal }) {
           </div>
 
           {/* Center: Universal Command Omnibar with Keyboard Hint & Quick Suggestions */}
-          <div className="hidden md:flex flex-1 max-w-md mx-4 relative">
+          <div className="hidden md:flex flex-1 max-w-xs lg:max-w-md mx-2 lg:mx-4 relative">
             <div
               className={`relative w-full rounded-full transition-all duration-300 ${
                 isSearchFocused
@@ -181,11 +181,11 @@ export default function Header({ onToggleMobileSidebar, onOpenPrintModal }) {
 
             {/* Account / Dashboard Button & Clerk UserButton */}
             {isLoggedIn ? (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                 {isShopkeeper ? (
                   <button
                     onClick={() => setCurrentView(currentView === 'shopkeeper-dashboard' ? 'catalog' : 'shopkeeper-dashboard')}
-                    className="flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer shrink-0"
                     title="Switch between Shopkeeper Counter Hub and Public Catalog"
                   >
                     <Store className="w-3.5 h-3.5 text-amber-700" />
@@ -194,11 +194,11 @@ export default function Header({ onToggleMobileSidebar, onOpenPrintModal }) {
                 ) : (
                   <button
                     onClick={() => setCurrentView(currentView === 'user-dashboard' ? 'catalog' : 'user-dashboard')}
-                    className="flex items-center gap-1.5 bg-[#F4F2EC] hover:bg-stone-200/80 text-stone-800 border border-warm-border px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 bg-[#F4F2EC] hover:bg-stone-200/80 text-stone-800 border border-warm-border px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer shrink-0"
                     title="Open Your Account & Orders"
                   >
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="max-w-[90px] truncate">{currentView === 'user-dashboard' ? 'Catalog' : currentUser?.handle || 'Account'}</span>
+                    <span className="max-w-[70px] sm:max-w-[90px] truncate">{currentView === 'user-dashboard' ? 'Catalog' : currentUser?.handle || 'Account'}</span>
                   </button>
                 )}
                 <UserButton afterSignOutUrl="/" />

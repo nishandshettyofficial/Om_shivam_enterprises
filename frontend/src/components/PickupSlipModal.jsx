@@ -42,7 +42,8 @@ export default function PickupSlipModal() {
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-[#FAF9F5] rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-warm-border animate-fade-in my-6">
+      <div className="fixed inset-0" onClick={() => setPickupSlip(null)} />
+      <div className="relative z-10 bg-[#FAF9F5] rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-warm-border animate-fade-in my-6 max-h-[92vh] overflow-y-auto">
         
         {/* Pass Header */}
         <div className="bg-[#141416] text-[#FAF9F5] p-5 flex items-center justify-between">
@@ -175,7 +176,7 @@ export default function PickupSlipModal() {
           </a>
 
           {/* Action Row */}
-          <div className="pt-1 flex gap-2">
+          <div className="pt-1 flex flex-col sm:flex-row gap-2">
             <button
               onClick={handleShareWhatsApp}
               className="flex-1 bg-[#141416] hover:bg-stone-800 text-[#FAF9F5] text-xs font-semibold py-3 px-4 rounded-full shadow-atelier flex items-center justify-center gap-2 cursor-pointer transition-colors"
@@ -184,21 +185,23 @@ export default function PickupSlipModal() {
               <span>Share WhatsApp</span>
             </button>
 
-            <button
-              onClick={handlePrint}
-              className="px-4 py-3 bg-white hover:bg-stone-100 text-stone-800 border border-warm-border rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-              title="Print slip"
-            >
-              <Printer className="w-4 h-4" />
-              <span>Print</span>
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={handlePrint}
+                className="flex-1 sm:flex-none px-4 py-3 bg-white hover:bg-stone-100 text-stone-800 border border-warm-border rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                title="Print slip"
+              >
+                <Printer className="w-4 h-4" />
+                <span>Print</span>
+              </button>
 
-            <button
-              onClick={() => setPickupSlip(null)}
-              className="px-4 py-3 bg-[#F4F2EC] hover:bg-stone-200 text-stone-700 rounded-full text-xs font-semibold transition-colors cursor-pointer"
-            >
-              Close
-            </button>
+              <button
+                onClick={() => setPickupSlip(null)}
+                className="flex-1 sm:flex-none px-4 py-3 bg-[#F4F2EC] hover:bg-stone-200 text-stone-700 rounded-full text-xs font-semibold transition-colors cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
           </div>
 
         </div>

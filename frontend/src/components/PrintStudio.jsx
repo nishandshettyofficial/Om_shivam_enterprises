@@ -229,36 +229,36 @@ export default function PrintStudio({ isModal = false, onClose }) {
   };
 
   return (
-    <div className="w-full bg-white border border-warm-border rounded-3xl shadow-sm overflow-hidden">
+    <div className={`w-full bg-white border border-warm-border rounded-3xl shadow-sm overflow-hidden ${isModal ? 'max-h-[88vh] flex flex-col' : ''}`}>
       
       {/* Header Bar */}
-      <div className="flex items-center justify-between p-5 sm:p-6 border-b border-warm-border/70 bg-[#FAF9F5]">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between p-4 sm:p-6 border-b border-warm-border/70 bg-[#FAF9F5] shrink-0">
+        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
           {!isModal && (
             <button
               onClick={() => setCurrentView('catalog')}
-              className="p-2 -ml-2 rounded-xl text-stone-600 hover:text-black hover:bg-stone-200 transition-colors cursor-pointer"
+              className="p-1.5 -ml-1 sm:p-2 sm:-ml-2 rounded-xl text-stone-600 hover:text-black hover:bg-stone-200 transition-colors cursor-pointer shrink-0"
               title="Back to Catalog"
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           )}
 
-          <div className="w-10 h-10 rounded-2xl bg-[#141416] text-white flex items-center justify-center shadow-xs shrink-0">
-            <Printer className="w-5 h-5 text-amber-400" />
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[#141416] text-white flex items-center justify-center shadow-xs shrink-0">
+            <Printer className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
           </div>
 
-          <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-base sm:text-lg font-bold text-[#141416] tracking-tight">
-                Interactive Print & Xerox Studio
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap sm:flex-nowrap">
+              <h2 className="text-sm sm:text-base md:text-lg font-bold text-[#141416] tracking-tight truncate">
+                Print & Xerox Studio
               </h2>
-              <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">
+              <span className="text-[9px] sm:text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
                 15-Min Pickup
               </span>
             </div>
-            <p className="text-xs text-stone-500 font-normal">
-              Instant counter calculation with official B&W, Color and Booklet rates
+            <p className="text-[11px] sm:text-xs text-stone-500 font-normal truncate sm:line-clamp-1">
+              Counter calculation with official B&W, Color & Booklet rates
             </p>
           </div>
         </div>
@@ -266,7 +266,7 @@ export default function PrintStudio({ isModal = false, onClose }) {
         {isModal && onClose && (
           <button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-stone-200 text-stone-400 hover:text-black transition-colors cursor-pointer"
+            className="p-1.5 sm:p-2 rounded-full hover:bg-stone-200 text-stone-400 hover:text-black transition-colors cursor-pointer shrink-0"
             title="Close"
           >
             <X className="w-5 h-5" />
@@ -276,7 +276,7 @@ export default function PrintStudio({ isModal = false, onClose }) {
 
       {/* Main Content Area */}
       {orderDone && completedOrderDetails ? (
-        <div className="p-6 sm:p-10 text-center space-y-6">
+        <div className={`p-6 sm:p-10 text-center space-y-6 ${isModal ? 'overflow-y-auto' : ''}`}>
           <div className="w-16 h-16 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-xs">
             <CheckCircle className="w-9 h-9" />
           </div>
@@ -339,7 +339,7 @@ export default function PrintStudio({ isModal = false, onClose }) {
         </div>
       ) : (
         /* Interactive Checkout Form */
-        <div className="p-5 sm:p-8 space-y-6">
+        <div className={`p-4 sm:p-8 space-y-6 ${isModal ? 'overflow-y-auto' : ''}`}>
           
           {/* 1. Drag & Drop File Upload + Document Pages Counter */}
           <div className="space-y-3">

@@ -200,16 +200,16 @@ export default function UserDashboard() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
             <button
               onClick={() => setCurrentView('catalog')}
-              className="bg-white/10 hover:bg-white/20 text-white font-mono text-xs uppercase tracking-wider font-semibold px-4 py-2 rounded-full transition-colors cursor-pointer"
+              className="bg-white/10 hover:bg-white/20 text-white font-mono text-xs uppercase tracking-wider font-semibold px-3.5 sm:px-4 py-2 rounded-full transition-colors cursor-pointer"
             >
               ← Back to Catalog
             </button>
             <button
               onClick={logout}
-              className="bg-red-500/10 hover:bg-red-500/20 text-red-400 font-mono text-xs uppercase tracking-wider font-semibold px-4 py-2 rounded-full transition-colors flex items-center gap-1.5 cursor-pointer"
+              className="bg-red-500/10 hover:bg-red-500/20 text-red-400 font-mono text-xs uppercase tracking-wider font-semibold px-3.5 sm:px-4 py-2 rounded-full transition-colors flex items-center gap-1.5 cursor-pointer"
             >
               <LogOut className="w-3.5 h-3.5" />
               <span>Log Out</span>
@@ -223,10 +223,10 @@ export default function UserDashboard() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
         
         {/* Navigation Tabs */}
-        <div className="bg-white rounded-2xl p-1.5 shadow-atelier border border-warm-border flex items-center gap-1 max-w-lg mb-8">
+        <div className="bg-white rounded-2xl p-1.5 shadow-atelier border border-warm-border flex items-center gap-1 max-w-lg mb-8 overflow-x-auto no-scrollbar">
           <button
             onClick={() => setActiveTab('orders')}
-            className={`flex-1 py-2.5 px-3 rounded-xl font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+            className={`flex-1 min-w-[110px] py-2.5 px-3 rounded-xl font-mono text-[11px] sm:text-xs font-semibold flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'orders'
                 ? 'bg-[#141416] text-white shadow-xs'
                 : 'text-stone-600 hover:text-black'
@@ -237,7 +237,7 @@ export default function UserDashboard() {
           </button>
           <button
             onClick={() => setActiveTab('print')}
-            className={`flex-1 py-2.5 px-3 rounded-xl font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+            className={`flex-1 min-w-[110px] py-2.5 px-3 rounded-xl font-mono text-[11px] sm:text-xs font-semibold flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'print'
                 ? 'bg-[#141416] text-white shadow-xs'
                 : 'text-stone-600 hover:text-black'
@@ -248,7 +248,7 @@ export default function UserDashboard() {
           </button>
           <button
             onClick={() => setActiveTab('travel')}
-            className={`flex-1 py-2.5 px-3 rounded-xl font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+            className={`flex-1 min-w-[110px] py-2.5 px-3 rounded-xl font-mono text-[11px] sm:text-xs font-semibold flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'travel'
                 ? 'bg-[#141416] text-white shadow-xs'
                 : 'text-stone-600 hover:text-black'
@@ -313,13 +313,13 @@ export default function UserDashboard() {
 
                   {/* Pickup Progress Stepper */}
                   <div className="py-2">
-                    <div className="grid grid-cols-3 text-center text-[10px] font-mono">
-                      <div className="text-emerald-700 font-bold">1. Order Placed ✓</div>
+                    <div className="grid grid-cols-3 text-center text-[9px] sm:text-[10px] font-mono gap-1">
+                      <div className="text-emerald-700 font-bold">1. Placed ✓</div>
                       <div className={ord.status !== 'RECEIVED' ? 'text-emerald-700 font-bold' : 'text-stone-400'}>
-                        2. Packed & Bagged
+                        2. Packed
                       </div>
                       <div className={ord.status === 'READY' || ord.status === 'COLLECTED' ? 'text-emerald-700 font-bold' : 'text-stone-400'}>
-                        3. Ready at Counter
+                        3. Counter Ready
                       </div>
                     </div>
                     <div className="w-full h-1.5 bg-stone-100 rounded-full mt-2 overflow-hidden">
