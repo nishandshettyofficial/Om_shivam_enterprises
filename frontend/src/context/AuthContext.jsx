@@ -52,6 +52,7 @@ export function AuthProvider({ children }) {
 
       setCurrentUser(syncedUser);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(syncedUser));
+      setCurrentView((prev) => (prev === 'signin' ? 'catalog' : prev));
     } else if (!isSignedIn && currentUser?.authProvider === 'clerk') {
       setCurrentUser(null);
       localStorage.removeItem(STORAGE_KEY);
