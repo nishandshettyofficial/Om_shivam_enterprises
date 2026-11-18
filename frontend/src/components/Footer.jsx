@@ -36,7 +36,7 @@ export default function Footer() {
             </div>
 
             <p className="text-xs text-stone-400 font-normal leading-relaxed max-w-sm">
-              All your daily needs in one place. Authentic stationery, school and office essentials, photocopies, printouts, and travel tickets with fast counter collection.
+              All your daily needs in one place. Authentic stationery, school and office essentials, photocopies, and printouts with fast counter collection.
             </p>
 
             <div className="pt-2 flex items-center gap-2">
@@ -121,7 +121,7 @@ export default function Footer() {
               </a>
 
               <p className="text-[11px] text-stone-400 font-light leading-snug">
-                Send lists, document PDFs for printing, or travel inquiries directly to the counter.
+                Send lists or document PDFs for printing directly to the counter.
               </p>
             </div>
           </div>

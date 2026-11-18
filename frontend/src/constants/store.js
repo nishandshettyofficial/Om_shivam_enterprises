@@ -8,8 +8,8 @@ export const STORE_CONFIG = {
   name: "OM SHIVAM ENTERPRISES",
   shortName: "Om Shivam",
   monogram: "OS",
-  tagline: "Stationery • Xerox & Printing • Travel Tickets • School & Office Supplies • All Your Daily Needs in One Place",
-  subtitle: "Stationery • Xerox & Printing • Travel Tickets • School & Office Supplies",
+  tagline: "Stationery • Xerox & Printing • School & Office Supplies • All Your Daily Needs in One Place",
+  subtitle: "Stationery • Xerox & Printing • School & Office Supplies",
   
   // Contact & Location
   phone: "918147228162",
@@ -29,16 +29,16 @@ export const STORE_CONFIG = {
   // Counter Location
   address: {
     title: "OM SHIVAM ENTERPRISES",
-    line1: "Main Market, Stationery & Xerox Dept.",
-    line2: "Counter Collection Counter #1",
-    full: "OM SHIVAM ENTERPRISES, Main Market, Stationery & Xerox Counter",
+    line1: "Near Polipu, Kapu",
+    line2: "Udupi, Karnataka 574106",
+    short: "Kapu, Udupi",
+    full: "OM SHIVAM ENTERPRISES, Near Polipu, Kapu, Udupi, Karnataka 574106",
   },
   
   // Services
   services: [
     { title: "Genuine Stationery", desc: "Classmate, Parker, Pilot, Casio, Faber-Castell & Brustro." },
     { title: "Xerox & Colour Printing", desc: "High-speed photocopying, thesis spiral binding & color printouts." },
-    { title: "Travel Ticket Bookings", desc: "Instant confirmed rail, flight, and bus reservations." },
     { title: "Express Counter Pickup", desc: "Pre-assembled and bagged orders ready upon your arrival." }
   ],
   

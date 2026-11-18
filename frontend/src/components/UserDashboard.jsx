@@ -44,14 +44,6 @@ export default function UserDashboard() {
   const [printRemarks, setPrintRemarks] = useState('');
   const [printSubmitted, setPrintSubmitted] = useState(false);
 
-  // Travel Request State
-  const [travelMode, setTravelMode] = useState('Train');
-  const [passengerName, setPassengerName] = useState(currentUser?.name || '');
-  const [fromCity, setFromCity] = useState('');
-  const [toCity, setToCity] = useState('');
-  const [travelDate, setTravelDate] = useState('');
-  const [travelSubmitted, setTravelSubmitted] = useState(false);
-
   // Demo user orders for visualization
   const [userOrders, setUserOrders] = useState([
     {
@@ -84,16 +76,6 @@ export default function UserDashboard() {
       setPrintSubmitted(false);
       setPrintFileName('');
       setPrintRemarks('');
-    }, 4000);
-  };
-
-  const handleTravelSubmit = (e) => {
-    e.preventDefault();
-    setTravelSubmitted(true);
-    setTimeout(() => {
-      setTravelSubmitted(false);
-      setFromCity('');
-      setToCity('');
     }, 4000);
   };
 
@@ -246,17 +228,6 @@ export default function UserDashboard() {
             <Printer className="w-3.5 h-3.5" />
             <span>Xerox & Print</span>
           </button>
-          <button
-            onClick={() => setActiveTab('travel')}
-            className={`flex-1 min-w-[110px] py-2.5 px-3 rounded-xl font-mono text-[11px] sm:text-xs font-semibold flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === 'travel'
-                ? 'bg-[#141416] text-white shadow-xs'
-                : 'text-stone-600 hover:text-black'
-            }`}
-          >
-            <Ticket className="w-3.5 h-3.5" />
-            <span>Travel Tickets</span>
-          </button>
         </div>
 
         {/* Tab 1: Store Orders */}
@@ -377,103 +348,6 @@ export default function UserDashboard() {
         {activeTab === 'print' && (
           <div className="max-w-3xl">
             <PrintStudio isModal={false} />
-          </div>
-        )}
-
-        {/* Tab 3: Travel Tickets */}
-        {activeTab === 'travel' && (
-          <div className="max-w-2xl bg-white rounded-3xl p-6 sm:p-8 border border-warm-border shadow-atelier space-y-6">
-            <div>
-              <h3 className="text-xl font-bold text-[#141416]">
-                Train, Flight & Bus Ticket Counter Booking
-              </h3>
-              <p className="text-xs text-stone-500 font-light mt-1">
-                Skip the ticket booking hassle. Enter your travel itinerary and we will confirm your seats and tickets directly!
-              </p>
-            </div>
-
-            {travelSubmitted ? (
-              <div className="p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center space-y-2">
-                <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto" />
-                <h4 className="font-serif text-base font-bold text-emerald-900">
-                  Travel Booking Request Received!
-                </h4>
-                <p className="text-xs text-emerald-700">
-                  Our travel desk is checking seat availability. We will ping your WhatsApp shortly with options.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleTravelSubmit} className="space-y-4">
-                
-                <div className="grid grid-cols-3 gap-2">
-                  {['Train', 'Flight', 'Bus'].map((mode) => (
-                    <button
-                      key={mode}
-                      type="button"
-                      onClick={() => setTravelMode(mode)}
-                      className={`py-2.5 rounded-xl font-mono text-xs font-semibold border transition-all cursor-pointer ${
-                        travelMode === mode
-                          ? 'bg-[#141416] text-white border-[#141416]'
-                          : 'bg-[#F4F2EC] text-stone-700 border-warm-border hover:bg-stone-200'
-                      }`}
-                    >
-                      {mode}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-stone-600 font-semibold mb-1">
-                      Origin City
-                    </label>
-                    <input
-                      type="text"
-                      value={fromCity}
-                      onChange={(e) => setFromCity(e.target.value)}
-                      placeholder="e.g. Udupi / Mangalore"
-                      className="w-full bg-[#F4F2EC] border border-warm-border rounded-xl p-3 text-xs focus:ring-1 focus:ring-[#141416] focus:outline-none"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-stone-600 font-semibold mb-1">
-                      Destination City
-                    </label>
-                    <input
-                      type="text"
-                      value={toCity}
-                      onChange={(e) => setToCity(e.target.value)}
-                      placeholder="e.g. Bengaluru / Mumbai"
-                      className="w-full bg-[#F4F2EC] border border-warm-border rounded-xl p-3 text-xs focus:ring-1 focus:ring-[#141416] focus:outline-none"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-stone-600 font-semibold mb-1">
-                    Travel Date
-                  </label>
-                  <input
-                    type="date"
-                    value={travelDate}
-                    onChange={(e) => setTravelDate(e.target.value)}
-                    className="w-full bg-[#F4F2EC] border border-warm-border rounded-xl p-3 text-xs font-mono focus:ring-1 focus:ring-[#141416] focus:outline-none"
-                    required
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-[#141416] hover:bg-stone-800 text-white font-mono text-xs uppercase tracking-wider font-semibold py-3.5 px-4 rounded-full shadow-atelier transition-colors cursor-pointer"
-                >
-                  Send Travel Request to Shop
-                </button>
-
-              </form>
-            )}
-
           </div>
         )}
 

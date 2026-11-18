@@ -47,15 +47,6 @@ export default function Sidebar({
       }
     },
     {
-      id: 'travel-tickets',
-      label: 'Train, Bus & Air Tickets',
-      icon: Ticket,
-      badge: 'Counter',
-      action: () => {
-        window.open('https://wa.me/918147228162?text=Hello%20Om%20Shivam%2C%20I%20need%20assistance%20with%20Train%2FFlight%2FBus%20ticket%20booking.', '_blank');
-      }
-    },
-    {
       id: 'user-dashboard',
       label: 'My Orders & Slips',
       icon: Receipt,
@@ -67,13 +58,13 @@ export default function Sidebar({
         }
       }
     },
-    {
+    ...(isShopkeeper ? [{
       id: 'shopkeeper-dashboard',
-      label: isShopkeeper ? 'Shopkeeper Admin' : 'Store Counter Mode',
+      label: 'Store Management',
       icon: Store,
-      badge: isShopkeeper ? 'Staff' : null,
+      badge: 'Staff',
       action: () => setCurrentView('shopkeeper-dashboard')
-    }
+    }] : [])
   ];
 
   const renderSidebarContent = (isMobile = false) => {
@@ -203,7 +194,7 @@ export default function Sidebar({
               >
                 <span className="flex items-center gap-1.5 truncate">
                   <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0" />
-                  <span className="truncate">BMS College Rd, BLR</span>
+                  <span className="truncate">Kapu, Udupi</span>
                 </span>
                 <ExternalLink className="w-3 h-3 shrink-0" />
               </a>
