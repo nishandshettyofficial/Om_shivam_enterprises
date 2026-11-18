@@ -253,37 +253,19 @@ export default function App() {
             {/* Empty State if filter yields zero */}
             {processedProducts.length === 0 ? (
               <div className="text-center py-16 bg-white rounded-3xl border border-warm-border p-8 space-y-4">
-                <h3 className="text-xl font-bold tracking-tight text-[#141416]">
+                <h3 className="text-xl font-bold tracking-tight text-[#141416] font-display">
                   No products found matching "{searchQuery}"
                 </h3>
                 <p className="text-xs text-stone-500 max-w-sm mx-auto">
-                  Try searching with popular stationery keywords or click one of the quick filters below:
+                  Try adjusting your keywords or clearing your search filter to browse the full catalog.
                 </p>
-                <div className="flex flex-wrap items-center justify-center gap-2 max-w-md mx-auto pt-2">
-                  {[
-                    { label: '🖊️ All Pens', query: 'pen' },
-                    { label: '💧 Gel Pens', query: 'gel pen' },
-                    { label: '✍️ Ball Pens', query: 'ball pen' },
-                    { label: '✏️ Pencils', query: 'pencil' },
-                    { label: '📓 Notebooks', query: 'notebook' },
-                    { label: '📐 Geometry Box', query: 'geometry' }
-                  ].map((item) => (
-                    <button
-                      key={item.label}
-                      onClick={() => setSearchQuery(item.query)}
-                      className="px-3 py-1.5 text-xs font-medium bg-stone-100 hover:bg-[#141416] hover:text-white text-stone-700 rounded-full transition-colors cursor-pointer"
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
                 <div className="pt-2">
                   <button
                     onClick={handleResetFilters}
                     className="inline-flex items-center gap-2 bg-[#141416] text-[#FAF9F5] px-4 py-2 rounded-full text-xs font-semibold cursor-pointer"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
-                    <span>Reset All Filters</span>
+                    <span>Clear Search & Filters</span>
                   </button>
                 </div>
               </div>

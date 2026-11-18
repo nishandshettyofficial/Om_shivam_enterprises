@@ -64,7 +64,7 @@ export default function Header({ onToggleMobileSidebar, onOpenPrintModal }) {
               </div>
               <div className="hidden sm:block">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-base font-bold tracking-tight text-[#141416]">
+                  <span className="text-base font-bold tracking-tight text-[#141416] font-display">
                     {STORE_CONFIG.shortName}
                   </span>
                 </div>
@@ -113,43 +113,6 @@ export default function Header({ onToggleMobileSidebar, onOpenPrintModal }) {
                 </div>
               )}
             </div>
-
-            {/* Quick Filter Suggestions Dropdown */}
-            {isSearchFocused && !searchQuery && (
-              <div
-                onMouseDown={(e) => e.preventDefault()}
-                className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-md border border-warm-border rounded-2xl shadow-xl p-3 z-50 animate-fade-in"
-              >
-                <div className="text-[10px] font-mono uppercase tracking-wider text-stone-400 font-semibold mb-2">
-                  Quick Search & Live Filters
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {[
-                    { label: '🖊️ All Pens', query: 'pen' },
-                    { label: '💧 Gel Pens', query: 'gel pen' },
-                    { label: '✍️ Ball Pens', query: 'ball pen' },
-                    { label: '✏️ Pencils', query: 'pencil' },
-                    { label: '📓 Spiral Notebooks', query: 'spiral' },
-                    { label: '📐 Geometry Boxes', query: 'geometry' },
-                    { label: '🧼 Erasers', query: 'eraser' },
-                    { label: '🔪 Sharpeners', query: 'sharpener' },
-                    { label: '🎨 Crayons', query: 'crayon' }
-                  ].map((item) => (
-                    <button
-                      key={item.label}
-                      onClick={() => {
-                        setSearchQuery(item.query);
-                        if (currentView !== 'catalog') setCurrentView('catalog');
-                        setIsSearchFocused(false);
-                      }}
-                      className="text-xs font-mono bg-stone-100 hover:bg-[#141416] hover:text-white px-2.5 py-1 rounded-full transition-colors cursor-pointer text-stone-700"
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Right: Actions Bar */}
@@ -165,18 +128,16 @@ export default function Header({ onToggleMobileSidebar, onOpenPrintModal }) {
               <span>Print Upload</span>
             </button>
 
-            {/* Direct WhatsApp Concierge */}
+            {/* Direct WhatsApp Concierge (clean, no raw phone number) */}
             <a
-              href="https://wa.me/918147228162"
+              href={STORE_CONFIG.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs text-emerald-900 hover:text-emerald-950 border border-emerald-300/80 hover:border-emerald-500 bg-emerald-50/90 hover:bg-emerald-100 px-3 py-1.5 rounded-full transition-all font-medium cursor-pointer shadow-2xs"
-              title="Chat directly with OM SHIVAM ENTERPRISES on WhatsApp: 8147228162"
+              className="flex items-center gap-1.5 text-xs text-emerald-900 hover:text-emerald-950 border border-emerald-300/80 hover:border-emerald-500 bg-emerald-50/90 hover:bg-emerald-100 px-3.5 py-1.5 rounded-full transition-all font-medium cursor-pointer shadow-2xs"
+              title="Chat with OM SHIVAM ENTERPRISES on WhatsApp"
             >
               <MessageCircle className="w-3.5 h-3.5 text-emerald-600 fill-emerald-100 shrink-0" />
-              <span className="hidden sm:inline">WhatsApp:</span>
-              <span className="hidden sm:inline font-bold">8147228162</span>
-              <span className="sm:hidden font-bold">Chat</span>
+              <span className="font-semibold tracking-tight">WhatsApp</span>
             </a>
 
             {/* Account / Dashboard Button & Clerk UserButton */}

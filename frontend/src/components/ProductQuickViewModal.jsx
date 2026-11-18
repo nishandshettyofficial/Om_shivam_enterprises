@@ -190,7 +190,7 @@ export default function ProductQuickViewModal() {
                 className="w-full text-center text-xs text-stone-500 hover:text-emerald-700 py-1 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
               >
                 <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-                <span>WhatsApp counter at 8147228162</span>
+                <span>Chat on WhatsApp</span>
               </a>
 
             </div>
